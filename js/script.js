@@ -20,8 +20,6 @@ var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 // Variavel pra pegar o nome das musicas e artistas da funcao achaArt
 var artistas = {}
-// Variavel para receber a filtragem do json 'artistas', contendo apenas msc de um artista
-var artistaFiltro = []
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
@@ -43,21 +41,37 @@ function achaArt(resp_gen){
 						.then(result) //aqui vai oq vc faz com a resposta definitiva
 }
 
-// Utilizo pra executar a filtragem de musicas por artistas e usá-las nas perguntas
-function parametroArtista () {
-	teste = []
-	for (i = 0; i < artistas.length; i++) {
-		if(artist.value === artistas[i].artUrl)
-			teste.push(artistas[i])
+/* Funcao utilizada para retornar um array simples, apenas com o nome do artista e a msc
+parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API*/
+function paramArt (artistas) {
+	const result = item => {
+		let art = {
+			artUrl: item.artUrl,
+			musDesc: item.musDesc
+		}
+		return art
 	}
-	artistaFiltro = teste
-	console.log(artistaFiltro[0].musDesc)
+	return artistas.map(result)
+}
+/*Funcao utilizada para retornar um array de musicas do mesmo artistas ou vazio se nao escolher artista
+Parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API
+*/
+function filtroArtista (artistas) {
+	let art = paramArt(artistas)
+	if (artist.value !== 'vazio') {
+		teste = []
+		for (i = 0; i < art.length; i++) {
+			if(artist.value === art[i].artUrl)
+				teste.push(art[i])
+		}
+		art = teste
+	}
+	return art
 }
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
-	parametroArtista ()
-	geraPerguntas(perguntas, numPer.value, artistaFiltro)
+	geraPerguntas(perguntas, numPer.value, filtroArtista (artistas))
 })
 
 /*evento para pegar a qnt de questoes a ser respondida (Achei redundante)
