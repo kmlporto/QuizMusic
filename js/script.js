@@ -51,18 +51,19 @@ function parametroArtista () {
 			teste.push(artistas[i])
 	}
 	artistaFiltro = teste
-	console.log(artistaFiltro[0].musDesc)
+	//console.log(artistaFiltro[0].musDesc)
 }
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
+	requisicaoJSON ()
 	parametroArtista ()
 	geraPerguntas(perguntas, numPer.value, artistaFiltro)
 })
 
 /*evento para pegar a qnt de questoes a ser respondida (Achei redundante)
 numPer.addEventListener('change', () => {
-  console.log(numPer.value)
+  //console.log(numPer.value)
 	geraPerguntas(perguntas, numPer.value)
 })*/
 
@@ -72,13 +73,48 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+
+/*funcao para requisicao do JSON da API do vagalume
+	-Parametros: vetor com os artistas (ou apenas 1) que irão participar do jogo
+	-Retorno: irá retornar um JSON com as seguintes condições:
+	 	-se o vetor tiver apenas 1 artista - JSON com apenas musicas
+		-se o vetor tiveer varios artistas - JSON completo com nome do artista, foto e musicas;*/
+function requisicaoJSON (/*parametroArtista*/) {
+	let urlteste = ''
+	let parametro1 = ['madonna']
+	let parametro2 = ['madonna','lady%20gaga','justin%20bieber','maroon%205','michael%20jackson']
+	//urlteste = `https://api.vagalume.com.br/search.php?art=${parametro1[0]}&apikey=${key}`
+
+	/*funcao para requisiscao de informacoes sobre o artista as melhores musicas do artista
+		- parametro: nome do artistas
+		- retorno: array de objetos com id, desc e url da musica*/
+	function requisicaoTopMusicasArtista (artista) {
+		let urlArtista = `https://www.vagalume.com.br/${artista}/index.js`
+	  let arrayMusicas
+
+		fetch(urlArtista)
+		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+			.then(json => {
+			arrayMusicas = json.artist.toplyrics
+		})
+		return arrayMusicas
+	}
+
+	if (parametro1.length === 1) {
+		console.log(requisicaoTopMusicasArtista('madonna'))
+
+	}else {
+
+	}
+}
+
 //função para gerar perguntas
 function geraPerguntas (perguntas, qtd, art) {
 	//Aqui utilizei o valor [0] para agilizar o processo, mas isso tbm vira de forma 'ramdomica'
 	url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
-	console.log(url)
+	//console.log(url)
 	const result = (item) => {
-    console.log(item.mus[0].text)
+    //console.log(item.mus[0].text)
   }
 	fetch(url)
 					 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
