@@ -44,7 +44,7 @@ function achaArt(resp_gen){
 }
 
 // Utilizo pra executar a filtragem de musicas por artistas e usá-las nas perguntas
-artist.addEventListener('click', () =>{
+function parametroArtista () {
 	teste = []
 	for (i = 0; i < artistas.length; i++) {
 		if(artist.value === artistas[i].artUrl)
@@ -52,10 +52,11 @@ artist.addEventListener('click', () =>{
 	}
 	artistaFiltro = teste
 	console.log(artistaFiltro[0].musDesc)
-})
+}
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
+	parametroArtista ()
 	geraPerguntas(perguntas, numPer.value, artistaFiltro)
 })
 
