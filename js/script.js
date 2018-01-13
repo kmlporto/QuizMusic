@@ -39,23 +39,30 @@ function achaArt(resp_gen){
     artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
   }
   fetch(url)
-	         .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-	         .then(result) //aqui vai oq vc faz com a resposta definitiva
+						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+						.then(result) //aqui vai oq vc faz com a resposta definitiva
 }
 
 // Utilizo pra executar a filtragem de musicas por artistas e usá-las nas perguntas
-artist.addEventListener('click', () =>{
-	teste = []
-	for (i = 0; i < artistas.length; i++) {
-		if(artist.value === artistas[i].artUrl)
-			teste.push(artistas[i])
-	}
-	artistaFiltro = teste
-	console.log(artistaFiltro[0].musDesc)
-})
+// artist.addEventListener('click', () =>{
+// 	teste = []
+// 	for (i = 0; i < artistas.length; i++) {
+// 		if(artist.value === artistas[i].artUrl)
+// 			teste.push(artistas[i])
+// 	}
+// 	artistaFiltro = teste
+// 	console.log(artistaFiltro[0].musDesc)
+// })
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
+		teste = []
+		for (i = 0; i < artistas.length; i++) {
+			if(artist.value === artistas[i].artUrl)
+				teste.push(artistas[i])
+		}
+		artistaFiltro = teste
+		console.log(artistaFiltro[0].musDesc)
 	geraPerguntas(perguntas, numPer.value, artistaFiltro)
 })
 
