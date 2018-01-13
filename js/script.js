@@ -51,7 +51,8 @@ function paramArt (artistas) {
 		}
 		return art
 	}
-	return artistas.map(result)
+	if (artistas !==  undefined)
+		return artistas.map(result)
 }
 /*Funcao utilizada para retornar um array de musicas do mesmo artistas ou vazio se nao escolher artista
 Parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API
@@ -73,7 +74,7 @@ function filtroArtista (artistas) {
 botaoIniciar.addEventListener('click', () => {
 	requisicaoJSON ()
 	paramArt ()
-	geraPerguntas(perguntas, numPer.value, artistaFiltro)
+	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
 })
 
 /*evento para pegar a qnt de questoes a ser respondida (Achei redundante)
@@ -111,6 +112,10 @@ function requisicaoJSON (/*parametroArtista*/) {
 		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 			.then(json => {
 			arrayMusicas = json.artist.toplyrics
+			console.log(Object.keys(json.artist));
+			console.log(Object.keys(json.artist.toplyrics));
+			console.log(json.artist.toplyrics.item[0]);
+			console.log(arrayMusicas.item[0]);
 		})
 		return arrayMusicas
 	}
