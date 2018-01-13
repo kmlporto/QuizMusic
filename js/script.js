@@ -35,7 +35,8 @@ function achaArt(resp_gen){
   const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
   const result = (item) => {
 		artistas = item.playlist
-    artist.innerHTML = item.playlist.map(itemArt).sort().uniq().join('')
+		artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
+    artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
   }
   fetch(url)
 	         .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
