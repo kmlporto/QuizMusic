@@ -1,3 +1,5 @@
+//CONSTRUÇÃO DE PROTOTYPES
+
 Array.prototype.uniq = function () {
 	let uniq = []
 	let values = this
@@ -7,6 +9,8 @@ Array.prototype.uniq = function () {
 	})
   	return uniq
 }
+
+//DECLARACAO DE VARIÁVEIS
 
 let perguntas = ['A letra , pertence a qual Artista/Banda?',
                  'Complete a letra ',
@@ -18,13 +22,13 @@ var artist = document.querySelector('#art-banda')
 var numPer = document.querySelector('#numPer')
 var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
-// Variavel pra pegar o nome das musicas e artistas da funcao achaArt
+// Variavel pra pegar o nome das musicas e artistas nas funcoes
 var artistas = {}
+var arrayMusicas = {}
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
-//evento para receber o valor da escolha do genero musical
-genero.addEventListener('change', () => achaArt(genero.value))
+//CONSTRUÇÃO DAS FUNÇÕES DA APLICAÇÃO
 
 //função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
 function achaArt(resp_gen){
@@ -70,25 +74,11 @@ function filtroArtista (artistas) {
 	return art
 }
 
-// Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
-botaoIniciar.addEventListener('click', () => {
-	requisicaoJSON ()
-	paramArt ()
-	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
-})
-
-/*evento para pegar a qnt de questoes a ser respondida (Achei redundante)
-numPer.addEventListener('change', () => {
-  //console.log(numPer.value)
-	geraPerguntas(perguntas, numPer.value)
-})*/
-
 /*Função para gerar a selecao aleatória das perguntas
 (Funcao floor faz com que o numero seja arredondado pra baixo)*/
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 
 /*funcao para requisicao do JSON da API do vagalume
 	-Parametros: vetor com os artistas (ou apenas 1) que irão participar do jogo
@@ -106,22 +96,15 @@ function requisicaoJSON (/*parametroArtista*/) {
 		- retorno: array de objetos com id, desc e url da musica*/
 	function requisicaoTopMusicasArtista (artista) {
 		let urlArtista = `https://www.vagalume.com.br/${artista}/index.js`
-	  let arrayMusicas
 
 		fetch(urlArtista)
 		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 			.then(json => {
 			arrayMusicas = json.artist.toplyrics
-			console.log(Object.keys(json.artist));
-			console.log(Object.keys(json.artist.toplyrics));
-			console.log(json.artist.toplyrics.item[0]);
-			console.log(arrayMusicas.item[0]);
 		})
-		return arrayMusicas
 	}
 
 	if (parametro1.length === 1) {
-		console.log(requisicaoTopMusicasArtista('madonna'))
 
 	}else {
 
@@ -147,3 +130,14 @@ function geraPerguntas (perguntas, qtd, art) {
 
 //função para gerar o quiz
 //função para acumular os pontos
+
+
+//ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
+
+//evento para receber o valor da escolha do genero musical
+genero.addEventListener('change', () => achaArt(genero.value))
+
+// Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
+botaoIniciar.addEventListener('click', () => {
+	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
+})
