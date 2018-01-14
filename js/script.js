@@ -58,18 +58,20 @@ function paramArt (artistas) {
 	if (artistas !==  undefined)
 		return artistas.map(result)
 }
-/*Funcao utilizada para retornar um array de musicas do mesmo artistas ou vazio se nao escolher artista
+/*Funcao utilizada para retornar um array de musicas do mesmo artistas ou 0 (zero) se nao escolher artista
 Parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API
 */
 function filtroArtista (artistas) {
 	let art = paramArt(artistas)
+	let teste = []
 	if (artist.value !== 'vazio') {
-		teste = []
 		for (i = 0; i < art.length; i++) {
 			if(artist.value === art[i].artUrl)
 				teste.push(art[i])
 		}
 		art = teste
+	}else {
+		art = 0
 	}
 	return art
 }
@@ -85,7 +87,7 @@ function getRandomInt(min, max) {
 	-Retorno: irá retornar um JSON com as seguintes condições:
 	 	-se o vetor tiver apenas 1 artista - JSON com apenas musicas
 		-se o vetor tiveer varios artistas - JSON completo com nome do artista, foto e musicas;*/
-function requisicaoJSON (/*parametroArtista*/) {
+/*function requisicaoJSON (parametroArtista) {
 	let urlteste = ''
 	let parametro1 = ['madonna']
 	let parametro2 = ['madonna','lady%20gaga','justin%20bieber','maroon%205','michael%20jackson']
@@ -94,7 +96,7 @@ function requisicaoJSON (/*parametroArtista*/) {
 	/*funcao para requisiscao de informacoes sobre o artista as melhores musicas do artista
 		- parametro: nome do artistas
 		- retorno: array de objetos com id, desc e url da musica*/
-	function requisicaoTopMusicasArtista (artista) {
+	/*function requisicaoTopMusicasArtista (artista) {
 		let urlArtista = `https://www.vagalume.com.br/${artista}/index.js`
 
 		fetch(urlArtista)
@@ -109,7 +111,7 @@ function requisicaoJSON (/*parametroArtista*/) {
 	}else {
 
 	}
-}
+}*/
 
 //função para gerar perguntas
 function geraPerguntas (perguntas, qtd, art) {
@@ -139,5 +141,9 @@ genero.addEventListener('change', () => achaArt(genero.value))
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
-	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
+
+	if (filtroArtista (artistas) === 0) {
+		console.log ('teste')
+	}
+	//geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
 })
