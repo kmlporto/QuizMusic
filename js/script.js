@@ -114,16 +114,16 @@ function requisicaoJSON (/*parametroArtista*/) {
 		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 			.then(json => {
 			arrayMusicas = json.artist.toplyrics
-			//console.log(Object.keys(json.artist));
-			//console.log(Object.keys(json.artist.toplyrics));
-			//console.log(json.artist.toplyrics.item[0]);
-			//console.log(arrayMusicas.item[0]);
+			console.log(Object.keys(json.artist));
+			console.log(Object.keys(json.artist.toplyrics));
+			console.log(json.artist.toplyrics.item[0]);
+			console.log(arrayMusicas.item[0]);
 		})
 		return arrayMusicas
 	}
 
 	if (parametro1.length === 1) {
-		//console.log(requisicaoTopMusicasArtista('madonna'))
+		console.log(requisicaoTopMusicasArtista('madonna'))
 
 	}else {
 
