@@ -23,31 +23,18 @@ var numPer = document.querySelector('#numPer')
 var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
-var artistas = {}
+var artistas = []
 var arrayMusicas = {}
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
 //CONSTRUÇÃO DAS FUNÇÕES DA APLICAÇÃO
 
-//função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
-function achaArt(resp_gen){
-	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
-
-  const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
-  const result = (item) => {
-		artistas = item.playlist
-		artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
-    artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
-  }
-  fetch(url)
-						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-						.then(result) //aqui vai oq vc faz com a resposta definitiva
-}
-
-/* Funcao utilizada para retornar um array simples, apenas com o nome do artista e a msc
-parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API*/
-function paramArt (artistas) {
+/*Funcao utilizada para diminuir a quantidade de dados do JSON
+Retorno: json menor, com apenas dois dados
+Parametro: json completo, com todas as informacoes da playslist
+*/
+function diminParam (artistas) {
 	const result = item => {
 		let art = {
 			artUrl: item.artUrl,
@@ -58,22 +45,57 @@ function paramArt (artistas) {
 	if (artistas !==  undefined)
 		return artistas.map(result)
 }
-/*Funcao utilizada para retornar um array de musicas do mesmo artistas ou 0 (zero) se nao escolher artista
-Parametro: artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API
+
+//função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
+function achaArt(resp_gen){
+	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
+  const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
+  const result = (item) => {
+		artistas = diminParam(item.playlist)
+		artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
+    artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
+  }
+  fetch(url)
+						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+						.then(result) //aqui vai oq vc faz com a resposta definitiva
+}
+
+/* Funcao utilizada para retornar um array simples, apenas com o nome do artista e a msc
+Retorno:
+	Artista vazio - Ele envia o array completo de musicas de todos os artistas
+	Artista escolhido - Ele envia o array completo de musicas do artista escolhido
+parametro:
+	artistas - recebe um array com todos os artistas e msc com todas variaveis recebidas da API*/
+// function paramArt (artistas) {
+//
+
+// }
+/*Funcao utilizada para filtrar as musicas por artistas
+
+Retorno:
+	Artista vazio - Ele envia o array com as todos os links de letras de musicas de
+todos os artistas disponivel na playlist
+	Artista escolhido - Ele envia o array de links de letras de musicas do artista escolhido
+
+Parametro:
+	artistas - recebe um array com todos os artistas e músicas com as variaveis reduzidas pela
+funcao diminParam()
 */
 function filtroArtista (artistas) {
-	let art = paramArt(artistas)
 	let teste = []
 	if (artist.value !== 'vazio') {
-		for (i = 0; i < art.length; i++) {
-			if(artist.value === art[i].artUrl)
-				teste.push(art[i])
+		for (i = 0; i < artistas.length; i++) {
+			if(artist.value === artistas[i].artUrl)
+				teste.push(artistas[i])
 		}
-		art = teste
-	}else {
-		art = 0
+		artistas = teste
 	}
-	return art
+	//Transforma em link as informacoes do json escolhidon
+	const urlLetra = (item) => {
+		return `https://api.vagalume.com.br/search.php?art=${item.artUrl}&mus=${item.musDesc}&key=${key}`
+	}
+	return artistas.map(urlLetra)
+
 }
 
 /*Função para gerar a selecao aleatória das perguntas
@@ -107,7 +129,6 @@ function getRandomInt(min, max) {
 	}
 
 	if (parametro1.length === 1) {
-
 	}else {
 
 	}
@@ -152,11 +173,13 @@ genero.addEventListener('change', () => achaArt(genero.value))
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
 
-	console.log (artistas)
-	if (filtroArtista (artistas) === 0) {
+	if (filtroArtista (artistas) === undefined)
 		console.log ('teste')
-	}
-	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
+	// Utilizado para testar o retorno da funcao
+	let teste = filtroArtista(artistas)
+	for (i = 0; i < teste.length; i++)
+		console.log(teste[i])
+	//geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
