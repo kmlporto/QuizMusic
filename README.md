@@ -12,8 +12,8 @@ Projeto de Linguagem de Script.
 
   Keys:
 
-    * artUrl: Nome do artista conforme deve ser colocado no link;
-    * musDesc: Nome da música.
+  * artUrl: Nome do artista conforme deve ser colocado no link;
+  * musDesc: Nome da música.
 
 ### 'Key'
 
@@ -45,10 +45,10 @@ Projeto de Linguagem de Script.
 
   Retorno:
 
-  	* Artista vazio - Ele envia o array com as todos os links de letras de
-     musicas de todos os artistas disponivel na playlist;
-  	* Artista escolhido - Ele envia o array de links de letras de musicas do
-     artista escolhido.
+  * Artista vazio - Ele envia o array com as todos os links de letras de musicas de todos os artistas disponivel na playlist;
+
+  * Artista escolhido - Ele envia o array de links de letras de musicas do
+  artista escolhido.
 
   Parâmetros:
   	* artistas - recebe um array com todos os artistas e músicas com as
@@ -63,9 +63,9 @@ Projeto de Linguagem de Script.
 
   Parâmetros:
 
-    * min - Menor número possível para seleção;
-    * max - Maior número possível para seleção;
+  * min - Menor número possível para seleção;
+  * max - Maior número possível para seleção;
 
   Retorno:
 
-    * Número inteiro aleatório.
+  * Número inteiro aleatório.
