@@ -127,14 +127,14 @@ function getRandomInt(min, max) {
 //função para gerar perguntas
 function geraPerguntas (perguntas, qtd, art) {
 	//Aqui utilizei o valor [0] para agilizar o processo, mas isso tbm vira de forma 'ramdomica'
-	url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
+	//url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
 	//console.log(url)
-	const result = (item) => {
+	//const result = (item) => {
     //console.log(item.mus[0].text)
-  }
-	fetch(url)
-					 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-					 .then(result)
+  //}
+	//fetch(url)
+		//			 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+			//		 .then(result)
   questions.innerHTML = ''
   for (i = 0; i < qtd; i++)
     questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
@@ -159,7 +159,7 @@ botaoIniciar.addEventListener('click', () => {
 	let teste = filtroArtista(artMus)
 	for (i = 0; i < teste.length; i++)
 		console.log(teste[i])
-	//geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
+	geraPerguntas(perguntas, numPer.value, 3)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
