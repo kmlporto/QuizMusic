@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<!-- <script src="js/jquery-3.2.1.min.js"></script> -->
-
+	<link rel="stylesheet" href="style/main.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 </head>
 
 <body>
@@ -47,8 +47,20 @@
 				<option value="30">30</option>
 			</select>
 		</div>
-		<button class="botao">iniciar</button>
-		<div class="perguntas">
+		<button class="botao"><a class="js-open-modal" href="#" data-modal-id="popup">iniciar</a></button>
+		<div id="popup" class="modal-box">
+		  <header>
+		    <a href="#" class="js-modal-close close">×</a>
+		    <h3>Modal Title</h3>
+		  </header>
+		  <div class="modal-body">
+		    <p>Modal Body</p>
+		  </div>
+			<div class="perguntas">
+			</div>
+		  <footer>
+		    <a href="#" class="js-modal-close">Close Button</a>
+		  </footer>
 		</div>
 	</main>
 	<script src="js/script.js"></script>

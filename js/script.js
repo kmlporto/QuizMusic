@@ -118,15 +118,25 @@ function geraPerguntas (perguntas, qtd, art) {
 	//Aqui utilizei o valor [0] para agilizar o processo, mas isso tbm vira de forma 'ramdomica'
 	url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
 	//console.log(url)
-	const result = (item) => {
+	//const result = (item) => {
     //console.log(item.mus[0].text)
-  }
-	fetch(url)
-					 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-					 .then(result)
-  questions.innerHTML = ''
-  for (i = 0; i < qtd; i++)
-    questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
+  //}
+	//fetch(url)
+		//			 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+			//		 .then(result)
+
+	questions.innerHTML = ''
+	if (art === 0) {
+		for (i = 0; i < qtd; i++) {
+			let randomResult = getRandomInt(0, perguntas.length)
+			questions.innerHTML += `<h2>${perguntas[randomResult]}</h2>`
+			if (randomResult === 0) {
+
+				fetch (url)
+				questions.innerHTML += ``
+			}
+		}
+	}
 }
 
 
@@ -142,8 +152,46 @@ genero.addEventListener('change', () => achaArt(genero.value))
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
 
+	console.log (artistas)
 	if (filtroArtista (artistas) === 0) {
 		console.log ('teste')
 	}
-	//geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
+	geraPerguntas(perguntas, numPer.value, filtroArtista(artistas))
 })
+
+//-----------------JAVASCRIPT DO jquery ---------------------------
+
+//js do poupup
+$(function(){
+
+var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+
+  $('a[data-modal-id]').click(function(e) {
+    e.preventDefault();
+    $("body").append(appendthis);
+    $(".modal-overlay").fadeTo(500, 0.7);
+    //$(".js-modalbox").fadeIn(500);
+    var modalBox = $(this).attr('data-modal-id');
+    $('#'+modalBox).fadeIn($(this).data());
+  });
+
+
+$(".js-modal-close, .modal-overlay").click(function() {
+  $(".modal-box, .modal-overlay").fadeOut(500, function() {
+    $(".modal-overlay").remove();
+  });
+});
+
+$(window).resize(function() {
+  $(".modal-box").css({
+    top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+    left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+  });
+});
+
+$(window).resize();
+
+});
+
+
+//----------------fim do js do JQUERY-------------------------------
