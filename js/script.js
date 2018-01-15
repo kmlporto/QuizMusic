@@ -16,9 +16,11 @@ let perguntas = ['A letra , pertence a qual Artista/Banda?',
 var genero = document.querySelector('#generoMusical')
 var artist = document.querySelector('#art-banda')
 var numPer = document.querySelector('#numPer')
+//em vez de class .perguntas não deveria ser id #perguntas?? ----LEIAM AQUI-----
 var questions = document.querySelector('.perguntas')
+//aqui também? id #botão_iniciar ----LEIAM AQUI----
 var botaoIniciar = document.querySelector('.botao')
-// Variavel pra pegar o nome das musicas e artistas da funcao achaArt
+// Variavel pra pegar o nome do(s) artista(s)/banda(s) da funcao achaArt
 var artistas = {}
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
@@ -30,15 +32,15 @@ genero.addEventListener('change', () => achaArt(genero.value))
 function achaArt(resp_gen){
 	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
 
-  const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
-  const result = (item) => {
+	const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
+  	const result = (item) => {
 		artistas = item.playlist
 		artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
-    artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
-  }
-  fetch(url)
-						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-						.then(result) //aqui vai oq vc faz com a resposta definitiva
+		artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
+	}
+  	fetch(url)
+		.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+		.then(result) //aqui vai oq vc faz com a resposta definitiva
 }
 
 /* Funcao utilizada para retornar um array simples, apenas com o nome do artista e a msc
@@ -86,7 +88,7 @@ numPer.addEventListener('change', () => {
 /*Função para gerar a selecao aleatória das perguntas
 (Funcao floor faz com que o numero seja arredondado pra baixo)*/
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  	return Math.floor(Math.random() * (max - min)) + min;
 }
 
 
@@ -106,22 +108,22 @@ function requisicaoJSON (/*parametroArtista*/) {
 		- retorno: array de objetos com id, desc e url da musica*/
 	function requisicaoTopMusicasArtista (artista) {
 		let urlArtista = `https://www.vagalume.com.br/${artista}/index.js`
-	  let arrayMusicas
+	  	let arrayMusicas
 
 		fetch(urlArtista)
 		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 			.then(json => {
 			arrayMusicas = json.artist.toplyrics
-			console.log(Object.keys(json.artist));
-			console.log(Object.keys(json.artist.toplyrics));
-			console.log(json.artist.toplyrics.item[0]);
-			console.log(arrayMusicas.item[0]);
+			//console.log(Object.keys(json.artist));
+			//console.log(Object.keys(json.artist.toplyrics));
+			//console.log(json.artist.toplyrics.item[0]);
+			//console.log(arrayMusicas.item[0]);
 		})
 		return arrayMusicas
 	}
 
 	if (parametro1.length === 1) {
-		console.log(requisicaoTopMusicasArtista('madonna'))
+		//console.log(requisicaoTopMusicasArtista('madonna'))
 
 	}else {
 
@@ -135,13 +137,13 @@ function geraPerguntas (perguntas, qtd, art) {
 	//console.log(url)
 	const result = (item) => {
     //console.log(item.mus[0].text)
-  }
+  	}
 	fetch(url)
-					 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-					 .then(result)
-  questions.innerHTML = ''
-  for (i = 0; i < qtd; i++)
-    questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
+		.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+		.then(result)
+  	questions.innerHTML = ''
+  	for (i = 0; i < qtd; i++)
+    	questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
 }
 
 
