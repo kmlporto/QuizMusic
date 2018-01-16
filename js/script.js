@@ -12,9 +12,9 @@ Array.prototype.uniq = function () {
 
 //DECLARACAO DE VARIÁVEIS
 
-let perguntas = ['A letra , pertence a qual Artista/Banda?',
-                 'Complete a letra ',
+let perguntas = ['Complete a letra ',
                  'Acerte a nome da música',
+								 'A letra , pertence a qual Artista/Banda?',
                  'Qual o Artista/Banda ilustrado na foto?']
 
 var genero = document.querySelector('#generoMusical')
@@ -124,21 +124,86 @@ function getRandomInt(min, max) {
 	}
 }*/
 
-//função para gerar perguntas
-function geraPerguntas (perguntas, qtd, art) {
-	//Aqui utilizei o valor [0] para agilizar o processo, mas isso tbm vira de forma 'ramdomica'
+/*função para gerar pergunta
+	-parametros - possiveis perguntas do jogo, a quantidade de artistas selecionado (vazio ou um artista especifico) e o vetor com as urls das musicas dos artistas pra requisicao
+	-retorno - insere o html de um pergunta e suas possiveis respostas no codigo e retorna a resposta certa (1,2,3ou4)*/
+function geraPerguntas (perguntas, art, urls) {
 	//url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
 	//console.log(url)
-	//const result = (item) => {
-    //console.log(item.mus[0].text)
-  //}
-	//fetch(url)
-		//			 .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-			//		 .then(result)
-  questions.innerHTML = ''
-  for (i = 0; i < qtd; i++)
-    questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
-}
+	//let perguntas = ['Complete a letra ',
+		//	                 'Acerte a nome da música',
+			//								 'A letra , pertence a qual Artista/Banda?',
+			  //               'Qual o Artista/Banda ilustrado na foto?']
+
+
+ 	let random
+	let respCorreta = getRandomInt (1, 4)
+	let resp1, resp2, resp3, resp4
+	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
+	let htmlRespostaEscolha =
+		`<select id = "opcoesResp">
+			<option value="${resp1}">${resp1}</option>
+			<option value="${resp2}">${resp2}</option>
+			<option value="${resp3}">${resp3}</option>
+			<option value="${resp4}">${resp4}</option>
+		</select>`
+	let htmlRespostaEscreva =
+		``
+	function perguntaModelo1 () {
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+	}
+
+	function perguntaModelo2 (artista, urls) {
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		fetch(urls[getRandomInt(0,urls.length)])
+						 .then(resposta => resposta.json())
+						 .then(json => {
+							 let letra = json.mus.text
+							 questions.innerHTML += `<p>${letra}</p>`
+						 })
+		for (i = 1; i <= 4; i++) {
+			if (i===respCorreta) {
+				questions.innerHTML += `<option value="respCorreta">${artista}</option>`
+			} else {
+				questions.innerHTML += `<option value="respErrada">${art.key[random]}</option>`
+			}
+		}
+			questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
+
+	}
+
+	function perguntaModelo3 () {
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+			questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+	}
+
+	function perguntaModelo4 () {
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+			questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+	}
+
+	if (artist.value !== 'vazio') {
+		random = getRandomInt (0, perguntas.length)
+		if (random === 0) {
+
+		}
+		if (random === 1) {
+
+		}
+		if (random === 2) {
+
+		}
+		if (random === 3) {
+
+		}
+	}	else {
+
+	}
 
 
 //função para gerar o quiz
@@ -182,7 +247,12 @@ var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 $(".js-modal-close, .modal-overlay").click(function() {
   $(".modal-box, .modal-overlay").fadeOut(500, function() {
     $(".modal-overlay").remove();
+		location.reload();
   });
+});
+
+$(".js-modal-proxima").click(function() {
+	geraPerguntas(perguntas, 2, 3)
 });
 
 $(window).resize(function() {
@@ -195,6 +265,8 @@ $(window).resize(function() {
 $(window).resize();
 
 });
+
+//-----------jquery progressbar--------------------------
 
 
 //----------------fim do js do JQUERY-------------------------------
