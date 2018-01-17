@@ -82,12 +82,7 @@ function filtroArtista (artistas) {
 		}
 		artistas = teste
 	}
-	//Transforma em link as informacoes do json escolhido
-	const urlLetra = (item) => {
-		return `https://api.vagalume.com.br/search.php?art=${item.artUrl}&mus=${item.musDesc}&key=${key}`
-	}
-	return artistas.map(urlLetra)
-
+	return teste
 }
 
 /*Função para gerar a selecao aleatória das perguntas
@@ -195,9 +190,8 @@ function geraPerguntas (perguntas) {
 
 	function perguntaModelo6 () {
 		let artMusFilter = filtroArtista(artMus)
-		console.log (artMusFilter)
 		let randomMusic = getRandomInt(0,artMusFilter.length)
-		let urlLetra = artMusFilter[randomMusic]
+		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[randomMusic].artUrl}&mus=${artMusFilter[randomMusic].musDesc}&key=${key}`
 
 		parametroPergunta.innerHTML = ''
 		fetch(urlLetra)
@@ -213,7 +207,7 @@ function geraPerguntas (perguntas) {
 			if (i===respCorreta) {
 				questions.innerHTML += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
 			} else {
-				questions.innerHTML += `<option value="respErrada">${artMusFilter[getRandomInt(0,artMusFilter.length)].musDesc}</option>`
+				questions.innerHTML += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].musDesc}</option>`
 			}
 		}
 		questions.innerHTML += `</select>`
