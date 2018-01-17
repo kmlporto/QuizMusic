@@ -20,6 +20,7 @@ let perguntas = ['Complete a letra ',
 var genero = document.querySelector('#generoMusical')
 var artist = document.querySelector('#art-banda')
 var numPer = document.querySelector('#numPer')
+var parametroPergunta = document.querySelector ('.parametroPergunta')
 var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
@@ -38,7 +39,8 @@ function diminJSON (itensPlaylist) {
 	const diminVar = item => {
 		let art = {
 			artUrl: item.artUrl,
-			musDesc: item.musDesc
+			musDesc: item.musDesc,
+			artDesc: item.artDesc
 		}
 		return art
 	}
@@ -94,117 +96,149 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-/*funcao para requisicao do JSON da API do vagalume
-	-Parametros: vetor com os artistas (ou apenas 1) que irão participar do jogo
-	-Retorno: irá retornar um JSON com as seguintes condições:
-	 	-se o vetor tiver apenas 1 artista - JSON com apenas musicas
-		-se o vetor tiveer varios artistas - JSON completo com nome do artista, foto e musicas;*/
-/*function requisicaoJSON (parametroArtista) {
-	let urlteste = ''
-	let parametro1 = ['madonna']
-	let parametro2 = ['madonna','lady%20gaga','justin%20bieber','maroon%205','michael%20jackson']
-	//urlteste = `https://api.vagalume.com.br/search.php?art=${parametro1[0]}&apikey=${key}`
-
-	/*funcao para requisiscao de informacoes sobre o artista as melhores musicas do artista
-		- parametro: nome do artistas
-		- retorno: array de objetos com id, desc e url da musica*/
-	/*function requisicaoTopMusicasArtista (artista) {
-		let urlArtista = `https://www.vagalume.com.br/${artista}/index.js`
-
-		fetch(urlArtista)
-		  .then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-			.then(json => {
-			arrayMusicas = json.artist.toplyrics
-		})
-	}
-
-	if (parametro1.length === 1) {
-	}else {
-
-	}
-}*/
-
 /*função para gerar pergunta
 	-parametros - possiveis perguntas do jogo, a quantidade de artistas selecionado (vazio ou um artista especifico) e o vetor com as urls das musicas dos artistas pra requisicao
 	-retorno - insere o html de um pergunta e suas possiveis respostas no codigo e retorna a resposta certa (1,2,3ou4)*/
-function geraPerguntas (perguntas, art, urls) {
-	//url = `https://api.vagalume.com.br/search.php?art=${art[0].artUrl}&mus=${art[0].musDesc}&apikey=${key}`
-	//console.log(url)
+function geraPerguntas (perguntas) {
 	//let perguntas = ['Complete a letra ',
 		//	                 'Acerte a nome da música',
 			//								 'A letra , pertence a qual Artista/Banda?',
 			  //               'Qual o Artista/Banda ilustrado na foto?']
-
-
- 	let random
+ 	let random = getRandomInt (0, perguntas.length)
 	let respCorreta = getRandomInt (1, 4)
-	let resp1, resp2, resp3, resp4
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
-	let htmlRespostaEscolha =
-		`<select id = "opcoesResp">
-			<option value="${resp1}">${resp1}</option>
-			<option value="${resp2}">${resp2}</option>
-			<option value="${resp3}">${resp3}</option>
-			<option value="${resp4}">${resp4}</option>
-		</select>`
-	let htmlRespostaEscreva =
-		``
+
 	function perguntaModelo1 () {
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
 	}
 
-	function perguntaModelo2 (artista, urls) {
-		questions.innerHTML = ''
-		questions.innerHTML += htmlPergunta
-		fetch(urls[getRandomInt(0,urls.length)])
+	function perguntaModelo2 () {
+		let randomMusic = getRandomInt(0,artMus.length)
+		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMus[randomMusic].artUrl}&mus=${artMus[randomMusic].musDesc}&key=${key}`
+
+		parametroPergunta.innerHTML = ''
+		fetch(urlLetra)
 						 .then(resposta => resposta.json())
 						 .then(json => {
-							 let letra = json.mus.text
-							 questions.innerHTML += `<p>${letra}</p>`
+							 let letra = json.mus[0].text
+							 parametroPergunta.innerHTML += `<p>${letra}</p>`
 						 })
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += `<select id = "opcoesResp">`
 		for (i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
-				questions.innerHTML += `<option value="respCorreta">${artista}</option>`
+				questions.innerHTML += `<option value="respCorreta">${artMus[randomMusic].musDesc}</option>`
 			} else {
-				questions.innerHTML += `<option value="respErrada">${art.key[random]}</option>`
+				questions.innerHTML += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].musDesc}</option>`
 			}
 		}
-			questions.innerHTML += `<h2>${perguntas[getRandomInt(0, perguntas.length)]}</h2>`
-
+		questions.innerHTML += `</select>`
 	}
 
 	function perguntaModelo3 () {
-			questions.innerHTML = ''
-			questions.innerHTML += htmlPergunta
-			questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+		let randomMusic = getRandomInt(0,artMus.length)
+		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMus[randomMusic].artUrl}&mus=${artMus[randomMusic].musDesc}&key=${key}`
+
+		parametroPergunta.innerHTML = ''
+		fetch(urlLetra)
+						 .then(resposta => resposta.json())
+						 .then(json => {
+							 let letra = json.mus[0].text
+							 parametroPergunta.innerHTML += `<p>${letra}</p>`
+						 })
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += `<select id = "opcoesResp">`
+		for (i = 1; i <= 4; i++) {
+			if (i===respCorreta) {
+				questions.innerHTML += `<option value="respCorreta">${artMus[randomMusic].artDesc}</option>`
+			} else {
+				questions.innerHTML += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].artDesc}</option>`
+			}
+		}
+		questions.innerHTML += `</select>`
 	}
 
 	function perguntaModelo4 () {
-			questions.innerHTML = ''
-			questions.innerHTML += htmlPergunta
-			questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+		let randomMusic = getRandomInt(0,artMus.length)
+		let urlLetra = `https://www.vagalume.com.br/${artMus[randomMusic].artUrl}/index.js`
+
+		parametroPergunta.innerHTML = ''
+		fetch(urlLetra)
+						 .then(resposta => resposta.json())
+						 .then(json => {
+							 let letra = "https://www.vagalume.com.br/"
+							 letra += json.artist.pic_small
+							 parametroPergunta.innerHTML += `<img src="${letra}" alt="">`
+						 })
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += `<select id = "opcoesResp">`
+		for (i = 1; i <= 4; i++) {
+			if (i===respCorreta) {
+				questions.innerHTML += `<option value="respCorreta">${artMus[randomMusic].artDesc}</option>`
+			} else {
+				questions.innerHTML += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].artDesc}</option>`
+			}
+		}
+		questions.innerHTML += `</select>`
 	}
 
-	if (artist.value !== 'vazio') {
-		random = getRandomInt (0, perguntas.length)
-		if (random === 0) {
+	function perguntaModelo5 () {
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+	}
 
+	function perguntaModelo6 () {
+		let artMusFilter = filtroArtista(artMus)
+		console.log (artMusFilter)
+		let randomMusic = getRandomInt(0,artMusFilter.length)
+		let urlLetra = artMusFilter[randomMusic]
+
+		parametroPergunta.innerHTML = ''
+		fetch(urlLetra)
+						 .then(resposta => resposta.json())
+						 .then(json => {
+							 let letra = json.mus[0].text
+							 parametroPergunta.innerHTML += `<p>${letra}</p>`
+						 })
+		questions.innerHTML = ''
+		questions.innerHTML += htmlPergunta
+		questions.innerHTML += `<select id = "opcoesResp">`
+		for (i = 1; i <= 4; i++) {
+			if (i===respCorreta) {
+				questions.innerHTML += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
+			} else {
+				questions.innerHTML += `<option value="respErrada">${artMusFilter[getRandomInt(0,artMusFilter.length)].musDesc}</option>`
+			}
+		}
+		questions.innerHTML += `</select>`
+	}
+
+	if (artist.value === 'vazio') {
+		console.log (random)
+		if (random === 0) {
+			perguntaModelo1()
 		}
 		if (random === 1) {
-
+			perguntaModelo2()
 		}
 		if (random === 2) {
-
+			perguntaModelo3()
 		}
 		if (random === 3) {
-
+			perguntaModelo4()
 		}
 	}	else {
-
+		random = getRandomInt (0,2)
+		htmlPergunta = `<h2>${perguntas[random]}</h2>`
+		random === 0 ? perguntaModelo5() : perguntaModelo6()
 	}
-
+}
 
 //função para gerar o quiz
 //função para acumular os pontos
@@ -218,13 +252,13 @@ genero.addEventListener('change', () => achaArt(genero.value))
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', () => {
 
-	if (filtroArtista (artMus) === undefined)
-		console.log ('teste')
+	//if (filtroArtista (artMus) === undefined)
+		//console.log ('teste')
 	// Utilizado para testar o retorno da funcao
-	let teste = filtroArtista(artMus)
-	for (i = 0; i < teste.length; i++)
-		console.log(teste[i])
-	geraPerguntas(perguntas, numPer.value, 3)
+	//let teste = filtroArtista(artMus)
+	//for (i = 0; i < teste.length; i++)
+		//console.log(teste[i])
+	geraPerguntas(perguntas)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -252,7 +286,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 });
 
 $(".js-modal-proxima").click(function() {
-	geraPerguntas(perguntas, 2, 3)
+	geraPerguntas(perguntas)
 });
 
 $(window).resize(function() {
