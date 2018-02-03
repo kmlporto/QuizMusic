@@ -8,46 +8,31 @@
 </head>
 
 <body>
-	<header>
-		<h2>Quizz de Música</h2>
-		<p>Quanto você sabe sobre um gênero musical ou um artista?</p>
-		<p>Está interessado em saber? Vamos começar!</p>
-	</header>
 	<main class="container">
-		<div class="itens">
-			<h4>Gênero (obrigatório)</h4>
-			<select id = "generoMusical">
-				<option value="vazio"></option>
-				<option value="axe">Axé</option>
-				<option value="forro">Forró</option>
-				<option value="funk-carioca">Funk</option>
-				<option value="hip-hop">Hip Hop</option>
-				<option value="indie">Indie</option>
-				<option value="infantil">Infatil</option>
-				<option value="pagode">Pagode</option>
-				<option value="pop">Pop</option>
-				<option value="reggae">Reggae</option>
-				<option value="rock">Rock</option>
-				<option value="samba">Samba</option>
-				<option value="sertanejo">Sertanejo</option>
-			</select>
-		</div>
-		<div>
-			<h4>Artista/banda (opcional)</h4>
-			<select id = "art-banda">
+		<img id="img-logo" src="img/notas-musicas.png" alt="Notas Musicais">
+		<h1 id="titulo">MusiQuiz</h1>
+		<img id="img-logo2" src="img/notas-musicais.png" alt="Notas Musicais">
+		<div class="formulario">
+			<p>Quanto você sabe sobre um gênero musical ou um artista?</p>
+			<p>Está interessado em saber? Vamos começar!</p>
+			<form class="" action="">
+				<fieldset>
+					<legend>Gênero e Artista</legend>
+					<label for="generoMusical">Gênero (obrigatório)</label>
+					<select id = "generoMusical">
+					</select>
+					<label for="art-banda">Artista/banda (opcional)</label>
+					<select id = "art-banda">
+						<option value="vazio">Escolha uma opção</option>
+					</select>
+					<label for="numPer">Número de perguntas(obrigatório)</label>
+					<select id = "numPer">
 
-			</select>
+					</select>
+					<button class="botao"><a class="js-open-modal" href="#" data-modal-id="popup">iniciar</a></button>
+				</fieldset>
+			</form>
 		</div>
-		<div>
-			<h4>Número de perguntas(obrigatório)</h4>
-			<select id = "numPer">
-				<option value="5">05</option>
-				<option value="10">10</option>
-				<option value="20">20</option>
-				<option value="30">30</option>
-			</select>
-		</div>
-		<button class="botao"><a class="js-open-modal" href="#" data-modal-id="popup">iniciar</a></button>
 		<div id="popup" class="modal-box">
 		  <header>
 		    <a href="#" class="js-modal-close close">×</a>
@@ -63,6 +48,8 @@
 				<a href="#" class="js-modal-proxima">Proxima pergunta</a>
 		  </footer>
 		</div>
+		<img id="img-instrumentos" src="img/Instrumentos-musicais.png" alt="Instrumentos Musicais">
+		<img id="img-notaMus" src="img/musical-notes.png" alt="Nota Musical">
 	</main>
 	<script src="js/script.js"></script>
 </body>

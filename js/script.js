@@ -29,6 +29,35 @@ var artMus = []
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
+
+var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
+ 							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
+
+var numeroPerguntas = [5, 10, 15, 20]
+
+function mostraGeneros (gen) {
+	let geraTagHtml = genero => {
+		let result
+		if (genero != 'vazio') {
+			result = `<option value="${genero}">${genero.toUpperCase().replace('-', ' ')}</option>`
+		}	else
+				result = `<option value="${genero}">Escolha uma opção</option>`
+		generoMusical.insertAdjacentHTML('beforeend',result)
+	}
+	gen.forEach(geraTagHtml)
+}
+
+function mostraNumPerguntas (numeros) {
+	console.log(numeros)
+	let geraTagHtml = numero => {
+		numPer.insertAdjacentHTML('beforeend',`<option value="${numero}">${numero}</option>`)
+	}
+	numeros.forEach(geraTagHtml)
+}
+
+mostraGeneros(generos)
+mostraNumPerguntas(numeroPerguntas)
+
 //CONSTRUÇÃO DAS FUNÇÕES DA APLICAÇÃO
 
 /*Funcao utilizada para diminuir a quantidade de dados do JSON
@@ -54,7 +83,7 @@ function achaArt(resp_gen){
   const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
   const result = (item) => {
 		artMus = diminJSON(item.playlist)
-		artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
+		//artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
     artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
   }
   fetch(url)
@@ -255,8 +284,8 @@ function geraPerguntas (perguntas) {
 genero.addEventListener('change', () => achaArt(genero.value))
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
-botaoIniciar.addEventListener('click', () => {
-
+botaoIniciar.addEventListener('click', (event) => {
+	event.preventDefault()
 	//if (filtroArtista (artMus) === undefined)
 		//console.log ('teste')
 	// Utilizado para testar o retorno da funcao

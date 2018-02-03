@@ -68,3 +68,59 @@ a.close:hover {
 }
 
 /*-----------------FIM DO CSS DO POPUP------------------*/
+body {
+  margin: 0;
+  background-color: #ffdb58;
+}
+
+header h1 {
+  font-size: 72px;
+}
+.container {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: "notas1 logo notas2"
+                       "notas1 corpo inst-musical"
+                       "nota corpo inst-musical"
+}
+
+
+#img-logo {
+  grid-area: notas1;
+  width: 400px;
+  height: 400px;
+}
+#img-logo2 {
+  grid-area: notas2;
+  width: 500px;
+  height: 118px;
+}
+#img-notaMus {
+  grid-area: nota;
+  width: 100px;
+  align-self: end;
+  justify-self: start;
+}
+#titulo {
+  grid-area: logo;
+  align-self: center;
+  justify-self: center;
+  font-size: 72px;
+}
+
+.formulario {
+  grid-area: corpo;
+}
+.formulario form * {
+  display: block;
+}
+#img-instrumentos {
+  grid-area: inst-musical;
+  align-self: end;
+  justify-self: end;
+}
+
+ a {
+   text-decoration: none;
+   color: black;
+ }
