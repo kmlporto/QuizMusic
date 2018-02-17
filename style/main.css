@@ -68,11 +68,45 @@ a.close:hover {
 }
 
 /*-----------------FIM DO CSS DO POPUP------------------*/
-body {
-  margin: 0;
-  background-color: #ffdb58;
+body{
+  background: url("../img/generos2.png") no-repeat;
 }
 
+.itens-centro {
+  justify-content: center;
+}
+#titulo {
+  font-family: 'Monoton', cursive;
+  font-size: 96px;
+  padding: 20px;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  box-shadow: 10px 10px 8px rgb(210,105,30);
+}
+main {
+  padding: 20px;
+  font-family: 'Poiret One', cursive;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+}
+header {
+  color: #D2691E;
+}
+.centro {
+  background-color: rgba(210,105,30,0.9);
+  border-radius: 25px;
+  margin: 20px;
+  box-shadow: 10px 10px 8px rgb(210,105,30), 10px 10px 8px 20px rgb(255,255,255);
+}
+.formulario {
+  margin: 10px;
+}
+
+/*
+ #696969
+
+font-family: 'Nanum Pen Script', cursive;
 header h1 {
   font-size: 72px;
 }
@@ -123,4 +157,4 @@ header h1 {
  a {
    text-decoration: none;
    color: black;
- }
+ }*/

@@ -5,34 +5,51 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="style/main.css">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Monoton|Poiret+One" rel="stylesheet">
 </head>
 
-<body>
-	<main class="container">
-		<img id="img-logo" src="img/notas-musicas.png" alt="Notas Musicais">
-		<h1 id="titulo">MusiQuiz</h1>
-		<img id="img-logo2" src="img/notas-musicais.png" alt="Notas Musicais">
-		<div class="formulario">
-			<p>Quanto você sabe sobre um gênero musical ou um artista?</p>
-			<p>Está interessado em saber? Vamos começar!</p>
-			<form class="" action="">
-				<fieldset>
-					<legend>Gênero e Artista</legend>
-					<label for="generoMusical">Gênero (obrigatório)</label>
-					<select id = "generoMusical">
-					</select>
-					<label for="art-banda">Artista/banda (opcional)</label>
-					<select id = "art-banda">
-						<option value="vazio">Escolha uma opção</option>
-					</select>
-					<label for="numPer">Número de perguntas(obrigatório)</label>
-					<select id = "numPer">
+<body class="container-fluid">
+	<header class= "row justify-content-sm-center">
+		<h1 class="" id="titulo">MusiQuiz</h1>
+		<!-- <img class="col-4" id="img-logo" src="img/notas-musicas.png" alt="Notas Musicais">
+		<img class="col-4" id="img-logo2" src="img/notas-musicais.png" alt="Notas Musicais"> -->
+	</header>
+	<main class="row">
+			<div class="col-sm-2">
 
-					</select>
-					<button class="botao"><a class="js-open-modal" href="#" data-modal-id="popup">iniciar</a></button>
-				</fieldset>
-			</form>
-		</div>
+			</div>
+			<div class="col-sm-8 centro">
+				<p class="row justify-content-center">Quanto você sabe sobre um gênero musical ou um artista?</p>
+				<p class="row justify-content-center">Está interessado em saber? Vamos começar!</p>
+				<div class="row justify-content-center">
+					<div class="col-sm-6">
+						<form class="form-horizontal formulario" action="">
+							<div class="form-group">
+								<label class="sr-only" for="generoMusical">Gênero (obrigatório)</label>
+								<select id = "generoMusical" class="form-control">
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="art-banda">Artista/banda (opcional)</label>
+								<select id = "art-banda" class="form-control">
+									<option value="vazio">Escolha um Artista/banda (opcional)</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="numPer">Número de perguntas (obrigatório)</label>
+								<select id = "numPer" class="form-control">
+								</select>
+							</div>
+							<button class="botao btn btn-default"><a class="js-open-modal" href="#" data-modal-id="popup">INICIAR</a></button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+
+			</div>
 		<div id="popup" class="modal-box">
 		  <header>
 		    <a href="#" class="js-modal-close close">×</a>
@@ -48,9 +65,9 @@
 				<a href="#" class="js-modal-proxima">Proxima pergunta</a>
 		  </footer>
 		</div>
-		<img id="img-instrumentos" src="img/Instrumentos-musicais.png" alt="Instrumentos Musicais">
-		<img id="img-notaMus" src="img/musical-notes.png" alt="Nota Musical">
+		<!-- <img id="img-instrumentos" src="img/generos2.png" alt="Instrumentos Musicais"> -->
+		<!-- <img id="img-notaMus" src="img/musical-notes.png" alt="Nota Musical"> -->
 	</main>
-	<script src="js/script.js"></script>
+	<script type="module" src="js/script.mjs"></script>
 </body>
 </html>
