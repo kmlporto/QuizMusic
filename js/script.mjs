@@ -3,12 +3,6 @@
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
 import {achaArt} from './genero.mjs'
 
-// const show = require('./show-selects.js')
-
-//CONSTRUÇÃO DE PROTOTYPES
-
-
-
 //DECLARACAO DE VARIÁVEIS
 
 let perguntas = ['Complete a letra ',
@@ -24,20 +18,12 @@ var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 var artMus = []
-//var arrayMusicas = {}
 // Chave do vagalume
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
 mostraGeneros(generoMusical)
 mostraNumPerguntas(numPer)
 
-//CONSTRUÇÃO DAS FUNÇÕES DA APLICAÇÃO
-
-
-
-
-
-//função para gerar o quiz
 //função para acumular os pontos
 
 

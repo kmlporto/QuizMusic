@@ -1,4 +1,12 @@
-import {uniq} from './uniq.mjs'
+Array.prototype.uniq = function () {
+	let uniq = []
+	let values = this
+	values.forEach(function (v) {
+  	if (!uniq.includes(v))
+  	uniq.push(v)
+	})
+  	return uniq
+}
 
 /*Funcao utilizada para diminuir a quantidade de dados do JSON
 Retorno: json menor, com apenas dois dados
