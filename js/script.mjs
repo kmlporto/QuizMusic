@@ -1,14 +1,21 @@
-// Importacoes
+// Importações
 
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
 import {achaArt} from './genero.mjs'
 
 //DECLARACAO DE VARIÁVEIS
 
+var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
+ 							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
+
+var numeroPerguntas = [5, 10, 15, 20]
+
 let perguntas = ['Complete a letra ',
                  'Acerte a nome da música',
 								 'A letra , pertence a qual Artista/Banda?',
                  'Qual o Artista/Banda ilustrado na foto?']
+
+// Query Selectors
 
 var genero = document.querySelector('#generoMusical')
 var artist = document.querySelector('#art-banda')
@@ -16,13 +23,19 @@ var numPer = document.querySelector('#numPer')
 var parametroPergunta = document.querySelector ('.parametroPergunta')
 var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
+
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
+
 var artMus = []
+
 // Chave do vagalume
+
 var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
-mostraGeneros(generoMusical)
-mostraNumPerguntas(numPer)
+// Exibição dinâmica dos itens dos selects formulário
+
+mostraGeneros(generos, generoMusical)
+mostraNumPerguntas(numeroPerguntas, numPer)
 
 //função para acumular os pontos
 
@@ -30,7 +43,7 @@ mostraNumPerguntas(numPer)
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
 
 //evento para receber o valor da escolha do genero musical
-genero.addEventListener('change', () => achaArt(genero.value, genero))
+genero.addEventListener('change', () => artMus = achaArt(genero.value, artist))
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {

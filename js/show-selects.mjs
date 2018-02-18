@@ -1,6 +1,4 @@
-export function mostraGeneros (seletor) {
-  var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
-   							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
+export function mostraGeneros (generos, seletor) {
 	let geraTagHtml = genero => {
 		let result
 		if (genero != 'vazio') {
@@ -12,16 +10,10 @@ export function mostraGeneros (seletor) {
 	generos.forEach(geraTagHtml)
 }
 
-export function mostraNumPerguntas (seletor) {
-  var numeroPerguntas = [5, 10, 15, 20]
+export function mostraNumPerguntas (numeros, seletor) {
 	console.log(numeros)
 	let geraTagHtml = numero => {
 		seletor.insertAdjacentHTML('beforeend',`<option value="${numero}">${numero}</option>`)
 	}
 	numeros.forEach(geraTagHtml)
 }
-
-// modules.exports = {
-//   mostraGeneros,
-//   mostraNumPerguntas
-// }

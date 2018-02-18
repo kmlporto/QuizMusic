@@ -68,13 +68,15 @@ a.close:hover {
 }
 
 /*-----------------FIM DO CSS DO POPUP------------------*/
+
+/*----------------- Estilização da Página---------------*/
+
 body{
-  background: url("../img/generos2.png") no-repeat;
+  background: url("../img/generos.png") no-repeat;
 }
 
-.itens-centro {
-  justify-content: center;
-}
+/*------ HEADER--------*/
+
 #titulo {
   font-family: 'Monoton', cursive;
   font-size: 96px;
@@ -82,15 +84,18 @@ body{
   background-color: rgba(255,255,255,0.9);
   border-radius: 25px;
   box-shadow: 10px 10px 8px rgb(210,105,30);
+  color: #D2691E;
 }
+
+/*------FIM HEADER--------*/
+
+/*------MAIN--------*/
+
 main {
   padding: 20px;
   font-family: 'Righteous', cursive;
   font-size: 30px;
   color: white;
-}
-header {
-  color: #D2691E;
 }
 .centro {
   background-color: rgba(210,105,30,0.9);
@@ -99,61 +104,16 @@ header {
   box-shadow: 10px 10px 8px rgb(210,105,30), 10px 10px 8px 20px rgb(255,255,255);
 }
 .formulario {
-  margin: 10px;
+  margin-top: 10px;
+  margin-botton: 10px;
+  font-size: 20px;
 }
 
-/*
- #696969
+/*------------FIM MAIN ------------*/
 
-font-family: 'Nanum Pen Script', cursive;
-header h1 {
-  font-size: 72px;
-}
-.container {
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "notas1 logo notas2"
-                       "notas1 corpo inst-musical"
-                       "nota corpo inst-musical"
-}
+/*Qualquer seletor comum*/
 
-
-#img-logo {
-  grid-area: notas1;
-  width: 400px;
-  height: 400px;
+a {
+  text-decoration: none;
+  color: black;
 }
-#img-logo2 {
-  grid-area: notas2;
-  width: 500px;
-  height: 118px;
-}
-#img-notaMus {
-  grid-area: nota;
-  width: 100px;
-  align-self: end;
-  justify-self: start;
-}
-#titulo {
-  grid-area: logo;
-  align-self: center;
-  justify-self: center;
-  font-size: 72px;
-}
-
-.formulario {
-  grid-area: corpo;
-}
-.formulario form * {
-  display: block;
-}
-#img-instrumentos {
-  grid-area: inst-musical;
-  align-self: end;
-  justify-self: end;
-}
-
- a {
-   text-decoration: none;
-   color: black;
- }*/

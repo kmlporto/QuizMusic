@@ -26,7 +26,9 @@ export function diminJSON (itensPlaylist) {
 }
 
 //função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
+
 export function achaArt(resp_gen, seletor){
+	let artMus
 	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
   const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
   const result = (item) => {
@@ -37,4 +39,5 @@ export function achaArt(resp_gen, seletor){
   fetch(url)
 						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 						.then(result) //aqui vai oq vc faz com a resposta definitiva
+	return artMus
 }
