@@ -28,7 +28,7 @@ function filtroArtista (artistas) {
 	-retorno - insere o html de um pergunta e suas possiveis respostas no codigo e retorna a resposta certa (1,2,3ou4)*/
 
 
-export function geraPerguntas (perguntas, questions, parametroPergunta) {
+export function geraPerguntas (perguntas, questions, parametroPergunta, artist) {
  	let random = getRandomInt (0, perguntas.length)
 	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
