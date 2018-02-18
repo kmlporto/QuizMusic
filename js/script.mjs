@@ -55,7 +55,7 @@ botaoIniciar.addEventListener('click', (event) => {
 	//let teste = filtroArtista(artMus)
 	//for (i = 0; i < teste.length; i++)
 		//console.log(teste[i])
-	geraPerguntas(perguntas, questions, parametroPergunta, artist)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -83,7 +83,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 });
 
 $(".js-modal-proxima").click(function() {
-	geraPerguntas(perguntas, questions, parametroPergunta, artist)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value)
 });
 
 $(window).resize(function() {
