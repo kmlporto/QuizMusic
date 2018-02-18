@@ -29,9 +29,6 @@ function filtroArtista (artistas) {
 
 
 export function geraPerguntas (perguntas, questions, parametroPergunta) {
-	questions.innerHTML = 'entrou'
-	parametroPergunta.innerHTML = 'entrou perguntas'
-	questions
  	let random = getRandomInt (0, perguntas.length)
 	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`

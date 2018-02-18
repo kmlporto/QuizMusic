@@ -2,6 +2,7 @@
 
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
 import {achaArt} from './genero.mjs'
+import {geraPerguntas} from './perguntas.mjs'
 
 //DECLARACAO DE VARIÁVEIS
 
