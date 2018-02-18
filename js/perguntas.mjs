@@ -29,12 +29,11 @@ function filtroArtista (artistas) {
 
 
 export function geraPerguntas (perguntas, questions, parametroPergunta) {
-	//let perguntas = ['Complete a letra ',
-		//	                 'Acerte a nome da música',
-			//								 'A letra , pertence a qual Artista/Banda?',
-			  //               'Qual o Artista/Banda ilustrado na foto?']
+	questions.innerHTML = 'entrou'
+	parametroPergunta.innerHTML = 'entrou perguntas'
+	questions
  	let random = getRandomInt (0, perguntas.length)
-	let respCorreta = getRandomInt (1, 4)
+	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
 
 	function perguntaModelo1 () {
