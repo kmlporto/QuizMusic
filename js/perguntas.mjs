@@ -11,7 +11,7 @@ Parametro:
 	artistas - recebe um array com todos os artistas e músicas com as variaveis reduzidas pela
 funcao diminJSON()
 */
-function filtroArtista (artistas) {
+function filtroArtista (artistas, artist) {
 	let teste = []
 	if (artist !== 'vazio') {
 		for (i = 0; i < artistas.length; i++) {
@@ -128,7 +128,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 	}
 
 	function perguntaModelo6 () {
-		let artMusFilter = filtroArtista(artMus)
+		let artMusFilter = filtroArtista(artMus, artist)
 		let randomMusic = getRandomInt(0,artMusFilter.length)
 		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[randomMusic].artUrl}&mus=${artMusFilter[randomMusic].musDesc}&key=${key}`
 		let htmlRespostas = ''
