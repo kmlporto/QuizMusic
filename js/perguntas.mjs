@@ -1,4 +1,4 @@
-import {getRandomInt} from './random.mjs'
+artistimport {getRandomInt} from './random.mjs'
 
 /*Funcao utilizada para filtrar as musicas por artistas
 
@@ -13,9 +13,9 @@ funcao diminJSON()
 */
 function filtroArtista (artistas) {
 	let teste = []
-	if (artist.value !== 'vazio') {
+	if (artist !== 'vazio') {
 		for (i = 0; i < artistas.length; i++) {
-			if(artist.value === artistas[i].artUrl)
+			if(artist === artistas[i].artUrl)
 				teste.push(artistas[i])
 		}
 		artistas = teste
@@ -153,8 +153,6 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		htmlRespostas += `</select>`
 		questions.innerHTML += htmlRespostas
 	}
-
-	console.log(artist);
 
 	if (artist === 'vazio') {
 		console.log (random)
