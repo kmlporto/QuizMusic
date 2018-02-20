@@ -41,55 +41,58 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
 	}
 
-	function perguntaModelo2 () {
-		let randomMusic = getRandomInt(0,artMus.length)
-		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMus[randomMusic].artUrl}&mus=${artMus[randomMusic].musDesc}&key=${key}`
-		let htmlRespostas = ''
+	async function perguntaModelo2 () {
+		artMus.then(v => {
+			let randomMusic = getRandomInt(0,v.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
+			let htmlRespostas = ''
 
-		parametroPergunta.innerHTML = ''
-		fetch(urlLetra)
-						.then(resposta => resposta.json())
-						.then(json => {
-							let letra = json.mus[0].text
-							let trecho = letra.split("\n").slice(0, 5).join("\n")
-							parametroPergunta.innerHTML += `<p>${trecho}</p>`
-						})
-		questions.innerHTML = ''
-		questions.innerHTML += htmlPergunta
-		htmlRespostas += `<select id = "opcoesResp">`
-		for (let i = 1; i <= 4; i++) {
-			if (i===respCorreta) {
-				htmlRespostas += `<option value="respCorreta">${artMus[randomMusic].musDesc}</option>`
-			} else {
-				htmlRespostas += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].musDesc}</option>`
+			parametroPergunta.innerHTML = ''
+			fetch(urlLetra)
+							 .then(resposta => resposta.json())
+							 .then(json => {
+								 let letra = json.mus[0].text
+								 let trecho = letra.split("\n").slice(0, 5).join(" ")
+								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
+							 })
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+
+			htmlRespostas += `<select id = "opcoesResp">`
+			for (let i = 1; i <= 4; i++) {
+				if (i===respCorreta) {
+					htmlRespostas += `<option value="respCorreta">${v[randomMusic].musDesc}</option>`
+				} else {
+					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].musDesc}</option>`
+				}
 			}
 			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
 		})
 	}
 
-	function perguntaModelo3 () {
-		let randomMusic = getRandomInt(0,artMus.length)
-		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMus[randomMusic].artUrl}&mus=${artMus[randomMusic].musDesc}&key=${key}`
-		let htmlRespostas = ''
+	async function perguntaModelo3 () {
+		artMus.then(v => {
+			let randomMusic = getRandomInt(0,v.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
 
-
-		parametroPergunta.innerHTML = ''
-		fetch(urlLetra)
-						.then(resposta => resposta.json())
-						.then(json => {
-							let letra = json.mus[0].text
-							let trecho = letra.split("\n").slice(0, 5).join(" ")
-							parametroPergunta.innerHTML += `<p>${trecho}</p>`
-						})
-		questions.innerHTML = ''
-		questions.innerHTML += htmlPergunta
-		htmlRespostas += `<select id = "opcoesResp">`
-		for (let i = 1; i <= 4; i++) {
-			if (i===respCorreta) {
-				htmlRespostas += `<option value="respCorreta">${artMus[randomMusic].artDesc}</option>`
-			} else {
-				htmlRespostas += `<option value="respErrada">${artMus[getRandomInt(0,artMus.length)].artDesc}</option>`
+			parametroPergunta.innerHTML = ''
+			fetch(urlLetra)
+							 .then(resposta => resposta.json())
+							 .then(json => {
+								 let letra = json.mus[0].text
+								 let trecho = letra.split("\n").slice(0, 5).join(" ")
+								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
+							 })
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+			htmlRespostas += `<select id = "opcoesResp">`
+			for (let i = 1; i <= 4; i++) {
+				if (i===respCorreta) {
+					htmlRespostas += `<option value="respCorreta">${v[randomMusic].artDesc}</option>`
+				} else {
+					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].artDesc}</option>`
+				}
 			}
 			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
