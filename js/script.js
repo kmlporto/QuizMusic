@@ -48,7 +48,6 @@ function mostraGeneros (gen) {
 }
 
 function mostraNumPerguntas (numeros) {
-	console.log(numeros)
 	let geraTagHtml = numero => {
 		numPer.insertAdjacentHTML('beforeend',`<option value="${numero}">${numero}</option>`)
 	}
@@ -254,7 +253,6 @@ function geraPerguntas (perguntas) {
 	}
 
 	if (artist.value === 'vazio') {
-		console.log (random)
 		if (random === 0) {
 			perguntaModelo1()
 		}
@@ -278,28 +276,20 @@ function geraPerguntas (perguntas) {
 //função para acumular os pontos
 
 //tempo restante
-
-document.getElementById('timer').innerHTML =
-  01 + ":" + 00;
-startTimer();
-
-function startTimer() {
-  var presentTime = document.getElementById('timer').innerHTML;
-  var timeArray = presentTime.split(/[:]+/);
-  var m = timeArray[0];
-  var s = checkSecond((timeArray[1] - 1));
-  if(s==59){m=m-1}
-  //if(m<0){alert('timer completed')}
-
-  document.getElementById('timer').innerHTML =
-    m + ":" + s;
-  setTimeout(startTimer, 1000);
-}
-
-function checkSecond(sec) {
-  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
-  if (sec < 0) {sec = "59"};
-  return sec;
+function timerCount () {
+	// adaptado de - http://hilios.github.io/jQuery.countdown/
+	var date = new Date();
+	var seg = date.getSeconds()
+	date = date.setSeconds(seg+10);
+	$("#clock").countdown(date, function(event) {
+		$(this).html(
+			event.strftime('CONTAGEM REGRESSIVA PARA RESPOSTA: %S')
+		);
+	})
+		.on('finish.countdown',function(event) {
+			$(this).html('Tempo limite atingido!');
+			location.reload();
+		});
 }
 
 
@@ -308,17 +298,16 @@ function checkSecond(sec) {
 //evento para receber o valor da escolha do genero musical
 genero.addEventListener('change', () => achaArt(genero.value))
 
+
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
-	//if (filtroArtista (artMus) === undefined)
-		//console.log ('teste')
-	// Utilizado para testar o retorno da funcao
-	//let teste = filtroArtista(artMus)
-	//for (i = 0; i < teste.length; i++)
-		//console.log(teste[i])
+	timerCount()
 	geraPerguntas(perguntas)
 })
+
+
+
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
 
