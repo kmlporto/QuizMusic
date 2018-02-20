@@ -44,7 +44,11 @@ mostraNumPerguntas(numeroPerguntas, numPer)
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
 
 //evento para receber o valor da escolha do genero musical
-genero.addEventListener('change', () => artMus = achaArt(genero.value, artist))
+genero.addEventListener('change', () => {
+  artist.innerHTML = ''
+  artist.innerHTML = `<option value="vazio">Escolha um Artista/banda (opcional)</option>`
+  artMus = achaArt(genero.value, artist)
+})
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {
@@ -55,7 +59,8 @@ botaoIniciar.addEventListener('click', (event) => {
 	//let teste = filtroArtista(artMus)
 	//for (i = 0; i < teste.length; i++)
 		//console.log(teste[i])
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus)
+    console.log(artMus);
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -83,7 +88,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 });
 
 $(".js-modal-proxima").click(function() {
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
 });
 
 $(window).resize(function() {
