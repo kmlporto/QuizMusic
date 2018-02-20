@@ -338,6 +338,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 });
 
 $(".js-modal-proxima").click(function() {
+	timerCount()
 	geraPerguntas(perguntas)
 });
 
