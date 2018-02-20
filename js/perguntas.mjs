@@ -164,7 +164,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		})
 	}
 
-	if (artist.value === 'vazio') {
+	if (artist === 'vazio') {
 		if (random === 0) {
 			perguntaModelo1()
 		}
