@@ -1,94 +1,5 @@
-//CONSTRUÇÃO DE PROTOTYPES
+artistimport {getRandomInt} from './random.mjs'
 
-Array.prototype.uniq = function () {
-	let uniq = []
-	let values = this
-	values.forEach(function (v) {
-  	if (!uniq.includes(v))
-  	uniq.push(v)
-	})
-  	return uniq
-}
-
-//DECLARACAO DE VARIÁVEIS
-
-let perguntas = ['Complete a letra ',
-                 'Acerte a nome da música',
-								 'A letra , pertence a qual Artista/Banda?',
-                 'Qual o Artista/Banda ilustrado na foto?']
-
-var genero = document.querySelector('#generoMusical')
-var artist = document.querySelector('#art-banda')
-var numPer = document.querySelector('#numPer')
-var parametroPergunta = document.querySelector ('.parametroPergunta')
-var questions = document.querySelector('.perguntas')
-var botaoIniciar = document.querySelector('.botao')
-// Variavel pra pegar o nome das musicas e artistas nas funcoes
-var artMus = []
-//var arrayMusicas = {}
-// Chave do vagalume
-var key = 'c3f6644637dc1802b86c528e33ba0f78'
-
-
-var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
- 							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
-
-var numeroPerguntas = [5, 10, 15, 20]
-
-function mostraGeneros (gen) {
-	let geraTagHtml = genero => {
-		let result
-		if (genero != 'vazio') {
-			result = `<option value="${genero}">${genero.toUpperCase().replace('-', ' ')}</option>`
-		}	else
-				result = `<option value="${genero}">Escolha uma opção</option>`
-		generoMusical.insertAdjacentHTML('beforeend',result)
-	}
-	gen.forEach(geraTagHtml)
-}
-
-function mostraNumPerguntas (numeros) {
-	let geraTagHtml = numero => {
-		numPer.insertAdjacentHTML('beforeend',`<option value="${numero}">${numero}</option>`)
-	}
-	numeros.forEach(geraTagHtml)
-}
-
-mostraGeneros(generos)
-mostraNumPerguntas(numeroPerguntas)
-
-//CONSTRUÇÃO DAS FUNÇÕES DA APLICAÇÃO
-
-/*Funcao utilizada para diminuir a quantidade de dados do JSON
-Retorno: json menor, com apenas dois dados
-Parametro: json completo, com todas as informacoes da playslist
-*/
-function diminJSON (itensPlaylist) {
-	const diminVar = item => {
-		let art = {
-			artUrl: item.artUrl,
-			musDesc: item.musDesc,
-			artDesc: item.artDesc
-		}
-		return art
-	}
-	if (itensPlaylist !==  undefined)
-		return itensPlaylist.map(diminVar)
-}
-
-//função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
-function achaArt(resp_gen){
-	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
-  const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
-  const result = (item) => {
-		artMus = diminJSON(item.playlist)
-		//artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
-    artist.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
-  }
-  fetch(url)
-						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-						.then(result) //aqui vai oq vc faz com a resposta definitiva
-}
 /*Funcao utilizada para filtrar as musicas por artistas
 
 Retorno:
@@ -102,9 +13,9 @@ funcao diminJSON()
 */
 function filtroArtista (artistas) {
 	let teste = []
-	if (artist.value !== 'vazio') {
+	if (artist !== 'vazio') {
 		for (i = 0; i < artistas.length; i++) {
-			if(artist.value === artistas[i].artUrl)
+			if(artist === artistas[i].artUrl)
 				teste.push(artistas[i])
 		}
 		artistas = teste
@@ -112,22 +23,14 @@ function filtroArtista (artistas) {
 	return teste
 }
 
-/*Função para gerar a selecao aleatória das perguntas
-(Funcao floor faz com que o numero seja arredondado pra baixo)*/
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 /*função para gerar pergunta
 	-parametros - possiveis perguntas do jogo, a quantidade de artistas selecionado (vazio ou um artista especifico) e o vetor com as urls das musicas dos artistas pra requisicao
 	-retorno - insere o html de um pergunta e suas possiveis respostas no codigo e retorna a resposta certa (1,2,3ou4)*/
-function geraPerguntas (perguntas) {
-	//let perguntas = ['Complete a letra ',
-		//	                 'Acerte a nome da música',
-			//								 'A letra , pertence a qual Artista/Banda?',
-			  //               'Qual o Artista/Banda ilustrado na foto?']
+
+
+export function geraPerguntas (perguntas, questions, parametroPergunta, artist, artMus) {
  	let random = getRandomInt (0, perguntas.length)
-	let respCorreta = getRandomInt (1, 4)
+	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
 
 	function perguntaModelo1 () {
@@ -275,85 +178,3 @@ function geraPerguntas (perguntas) {
 		random === 0 ? perguntaModelo5() : perguntaModelo6()
 	}
 }
-
-//função para gerar o quiz
-//função para acumular os pontos
-
-//tempo restante
-function timerCount () {
-	// adaptado de - http://hilios.github.io/jQuery.countdown/
-	var date = new Date();
-	var seg = date.getSeconds()
-	date = date.setSeconds(seg+10);
-	$("#clock").countdown(date, function(event) {
-		$(this).html(
-			event.strftime('CONTAGEM REGRESSIVA PARA RESPOSTA: %S')
-		);
-	})
-		.on('finish.countdown',function(event) {
-			$(this).html('Tempo limite atingido!');
-			location.reload();
-		});
-}
-
-
-//ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
-
-//evento para receber o valor da escolha do genero musical
-genero.addEventListener('change', () => achaArt(genero.value))
-
-
-// Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
-botaoIniciar.addEventListener('click', (event) => {
-	event.preventDefault()
-	timerCount()
-	geraPerguntas(perguntas)
-})
-
-
-
-
-//-----------------JAVASCRIPT DO jquery ---------------------------
-
-//js do poupup
-$(function(){
-
-var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
-
-  $('a[data-modal-id]').click(function(e) {
-    e.preventDefault();
-    $("body").append(appendthis);
-    $(".modal-overlay").fadeTo(500, 0.7);
-    //$(".js-modalbox").fadeIn(500);
-    var modalBox = $(this).attr('data-modal-id');
-    $('#'+modalBox).fadeIn($(this).data());
-  });
-
-
-$(".js-modal-close, .modal-overlay").click(function() {
-  $(".modal-box, .modal-overlay").fadeOut(500, function() {
-    $(".modal-overlay").remove();
-		location.reload();
-  });
-});
-
-$(".js-modal-proxima").click(function() {
-	timerCount()
-	geraPerguntas(perguntas)
-});
-
-$(window).resize(function() {
-  $(".modal-box").css({
-    top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
-    left: ($(window).width() - $(".modal-box").outerWidth()) / 2
-  });
-});
-
-$(window).resize();
-
-});
-
-//-----------jquery progressbar--------------------------
-
-
-//----------------fim do js do JQUERY-------------------------------

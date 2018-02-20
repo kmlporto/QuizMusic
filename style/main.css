@@ -68,59 +68,52 @@ a.close:hover {
 }
 
 /*-----------------FIM DO CSS DO POPUP------------------*/
-body {
-  margin: 0;
-  background-color: #ffdb58;
+
+/*----------------- Estilização da Página---------------*/
+
+body{
+  background: url("../img/generos.png") no-repeat;
 }
 
-header h1 {
-  font-size: 72px;
-}
-.container {
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "notas1 logo notas2"
-                       "notas1 corpo inst-musical"
-                       "nota corpo inst-musical"
-}
+/*------ HEADER--------*/
 
-
-#img-logo {
-  grid-area: notas1;
-  width: 400px;
-  height: 400px;
-}
-#img-logo2 {
-  grid-area: notas2;
-  width: 500px;
-  height: 118px;
-}
-#img-notaMus {
-  grid-area: nota;
-  width: 100px;
-  align-self: end;
-  justify-self: start;
-}
 #titulo {
-  grid-area: logo;
-  align-self: center;
-  justify-self: center;
-  font-size: 72px;
+  font-family: 'Monoton', cursive;
+  font-size: 96px;
+  padding: 20px;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  box-shadow: 10px 10px 8px rgb(210,105,30);
+  color: #D2691E;
 }
 
+/*------FIM HEADER--------*/
+
+/*------MAIN--------*/
+
+main {
+  padding: 20px;
+  font-family: 'Righteous', cursive;
+  font-size: 30px;
+  color: white;
+}
+.centro {
+  background-color: rgba(210,105,30,0.9);
+  border-radius: 25px;
+  margin: 20px;
+  box-shadow: 10px 10px 8px rgb(210,105,30), 10px 10px 8px 20px rgb(255,255,255);
+}
 .formulario {
-  grid-area: corpo;
-}
-.formulario form * {
-  display: block;
-}
-#img-instrumentos {
-  grid-area: inst-musical;
-  align-self: end;
-  justify-self: end;
+  margin-top: 10px;
+  margin-botton: 10px;
+  font-size: 18px;
 }
 
- a {
-   text-decoration: none;
-   color: black;
- }
+/*------------FIM MAIN ------------*/
+
+/*Qualquer seletor comum*/
+
+a {
+  text-decoration: none;
+  color: black;
+}
