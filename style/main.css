@@ -69,6 +69,15 @@ a.close:hover {
 
 /*-----------------FIM DO CSS DO POPUP------------------*/
 
+/*-----------------CSS DO POPUP MANUAL------------------*/
+
+#popup {
+  color: black;
+  font-size: 18px;
+}
+
+/*-----------------FIM DO CSS DO POPUP-MANUAL-----------------*/
+
 /*----------------- Estilização da Página---------------*/
 
 body{

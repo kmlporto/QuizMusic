@@ -44,7 +44,11 @@ mostraNumPerguntas(numeroPerguntas, numPer)
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
 
 //evento para receber o valor da escolha do genero musical
-genero.addEventListener('change', () => artMus = achaArt(genero.value, artist))
+genero.addEventListener('change', () => {
+  artist.innerHTML = ''
+  artist.innerHTML = `<option value="vazio">Escolha um Artista/banda (opcional)</option>`
+  artMus = achaArt(genero.value, artist)
+})
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {

@@ -27,17 +27,15 @@ export function diminJSON (itensPlaylist) {
 
 //função para mandar a resposta anterior para pegar artistas daquele genero no json do vagalume via url
 
-export function achaArt(resp_gen, seletor){
-	let artMus
+export async function achaArt(resp_gen, seletor){
 	let url = `https://www.vagalume.com.br/browse/style/${resp_gen}.js`
   const itemArt = i => `<option value="${i.artUrl}">${i.artDesc}</option>`
   const result = (item) => {
-		artMus = diminJSON(item.playlist)
 		//artist.innerHTML = '<option value="vazio"></option>' //forçar o usuario a tomar uma opção ou deixar vazio
     seletor.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
+		return diminJSON(item.playlist) // ? colocar diminJSON como async?
   }
-  fetch(url)
-						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
-						.then(result) //aqui vai oq vc faz com a resposta definitiva
-	return artMus
+  return await fetch(url)
+												.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
+												.then(result) //aqui vai oq vc faz com a resposta definitiva
 }
