@@ -50,7 +50,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 						.then(resposta => resposta.json())
 						.then(json => {
 							let letra = json.mus[0].text
-							let trecho = letra.split("\n").slice(0, 5).join(" ")
+							let trecho = letra.split("\n").slice(0, 5).join("\n")
 							parametroPergunta.innerHTML += `<p>${trecho}</p>`
 						})
 		questions.innerHTML = ''
@@ -147,7 +147,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 						 })
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
-		htmlRespostas += `<select id = "opcoesResp">`
+		htmlRespostas += `<input type= "radio" id = "opcoesResp">`
 		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
