@@ -89,7 +89,6 @@ function achaArt(resp_gen){
 						.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 						.then(result) //aqui vai oq vc faz com a resposta definitiva
 }
-
 /*Funcao utilizada para filtrar as musicas por artistas
 
 Retorno:
@@ -145,11 +144,12 @@ function geraPerguntas (perguntas) {
 
 		parametroPergunta.innerHTML = ''
 		fetch(urlLetra)
-						 .then(resposta => resposta.json())
-						 .then(json => {
-							 let letra = json.mus[0].text
-							 parametroPergunta.innerHTML += `<p>${letra}</p>`
-						 })
+						.then(resposta => resposta.json())
+						.then(json => {
+							let letra = json.mus[0].text
+							let trecho = letra.split("\n").slice(0, 5).join(" ")
+							parametroPergunta.innerHTML += `<p>${trecho}</p>`
+						})
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
@@ -172,11 +172,12 @@ function geraPerguntas (perguntas) {
 
 		parametroPergunta.innerHTML = ''
 		fetch(urlLetra)
-						 .then(resposta => resposta.json())
-						 .then(json => {
-							 let letra = json.mus[0].text
-							 parametroPergunta.innerHTML += `<p>${letra}</p>`
-						 })
+						.then(resposta => resposta.json())
+						.then(json => {
+							let letra = json.mus[0].text
+							let trecho = letra.split("\n").slice(0, 5).join(" ")
+							parametroPergunta.innerHTML += `<p>${trecho}</p>`
+						})
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
@@ -228,6 +229,8 @@ function geraPerguntas (perguntas) {
 	function perguntaModelo6 () {
 		let artMusFilter = filtroArtista(artMus)
 		let randomMusic = getRandomInt(0,artMusFilter.length)
+		//variavel para receber a resposta correta e depois comparar com a respota do usuário
+		let respostaCorreta = artMusFilter[randomMusic].musDesc
 		let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[randomMusic].artUrl}&mus=${artMusFilter[randomMusic].musDesc}&key=${key}`
 		let htmlRespostas = ''
 
@@ -236,7 +239,8 @@ function geraPerguntas (perguntas) {
 						 .then(resposta => resposta.json())
 						 .then(json => {
 							 let letra = json.mus[0].text
-							 parametroPergunta.innerHTML += `<p>${letra}</p>`
+							 let trecho = letra.split("\n").slice(0, 5).join(" ")
+							 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 						 })
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
