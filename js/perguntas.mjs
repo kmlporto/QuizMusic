@@ -56,7 +56,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
-		for (i = 1; i <= 4; i++) {
+		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMus[randomMusic].musDesc}</option>`
 			} else {
@@ -84,7 +84,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
-		for (i = 1; i <= 4; i++) {
+		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMus[randomMusic].artDesc}</option>`
 			} else {
@@ -112,7 +112,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
-		for (i = 1; i <= 4; i++) {
+		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMus[randomMusic].artDesc}</option>`
 			} else {
@@ -142,13 +142,13 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 						 .then(resposta => resposta.json())
 						 .then(json => {
 							 let letra = json.mus[0].text
-							 let trecho = letra.split("\n").slice(0, 5).join(" ")
+							 let trecho = letra.split("\n").slice(0, 5).join(" ").replace('\ (?=[A-Z])', '\n')
 							 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 						 })
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
 		htmlRespostas += `<select id = "opcoesResp">`
-		for (i = 1; i <= 4; i++) {
+		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
 			} else {
