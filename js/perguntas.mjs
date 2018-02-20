@@ -69,41 +69,8 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 			questions.innerHTML += htmlRespostas
 		})
 	}
-	// 	const artMusLength = await artMus.then(v => v.length)
-	// 	let randomMusic = getRandomInt(0,artMusLength)
-	// 	const urlLetra = await artMus.then( v => {
-	// 		return `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
-	// 	})
-	// 	// let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMus[randomMusic].artUrl}&mus=${artMus[randomMusic].musDesc}&key=${key}`
-	// 	let htmlRespostas = ''
-  //
-	// 	parametroPergunta.innerHTML = ''
-	// 	fetch(urlLetra)
-	// 					 .then(resposta => resposta.json())
-	// 					 .then(json => {
-	// 						 let letra = json.mus[0].text
-	// 						 parametroPergunta.innerHTML += `<p>${letra}</p>`
-	// 					 })
-	// 	questions.innerHTML = ''
-	// 	questions.innerHTML += htmlPergunta
-  //
-	// 	htmlRespostas += `<select id = "opcoesResp">`
-	// 	for (let i = 1; i <= 4; i++) {
-	// 		if (i===respCorreta) {
-	// 			htmlRespostas += await artMus.then(v => {
-	// 				return `<option value="respCorreta">${v[randomMusic].musDesc}</option>`
-	// 			})
-	// 		} else {
-	// 			htmlRespostas += await artMus.then(v => {
-	// 				return `<option value="respErrada">${v[getRandomInt(0,artMusLength)].musDesc}</option>`
-	// 			})
-	// 		}
-	// 	}
-	// 	htmlRespostas += `</select>`
-	// 	questions.innerHTML += htmlRespostas
-	// }
-  //
-	function perguntaModelo3 () {
+
+	async function perguntaModelo3 () {
 		artMus.then(v => {
 			let randomMusic = getRandomInt(0,v.length)
 			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
@@ -130,7 +97,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		})
 	}
 
-	function perguntaModelo4 () {
+	async function perguntaModelo4 () {
 		artMus.then(v => {
 			let randomMusic = getRandomInt(0,v.length)
 			let urlLetra = `https://www.vagalume.com.br/${v[randomMusic].artUrl}/index.js`
@@ -165,7 +132,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
 	}
 
-	function perguntaModelo6 () {
+	async function perguntaModelo6 () {
 		artMus.then(v => {
 			let artMusFilter = filtroArtista(v, artist) // ?? Verificar
 			let randomMusic = getRandomInt(0,artMusFilter.length)
