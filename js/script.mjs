@@ -54,7 +54,7 @@ genero.addEventListener('change', () => {
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
