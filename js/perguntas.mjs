@@ -1,4 +1,4 @@
-artistimport {getRandomInt} from './random.mjs'
+import {getRandomInt} from './random.mjs'
 
 /*Funcao utilizada para filtrar as musicas por artistas
 
