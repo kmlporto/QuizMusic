@@ -147,7 +147,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 						 })
 		questions.innerHTML = ''
 		questions.innerHTML += htmlPergunta
-		htmlRespostas += `<input type= "radio" id = "opcoesResp">`
+		htmlRespostas += `<select id = "opcoesResp">`
 		for (let i = 1; i <= 4; i++) {
 			if (i===respCorreta) {
 				htmlRespostas += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
