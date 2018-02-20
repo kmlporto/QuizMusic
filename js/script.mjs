@@ -100,7 +100,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-	geraPerguntas(perguntas)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
 });
 
 $(window).resize(function() {
