@@ -33,9 +33,21 @@
 				</fieldset>
 			</form>
 		</div>
-		<button class="botao">iniciar</button>
-		<!-- em vez de class poderia ser id="perguntas" -->
-		<div class="perguntas">
+		<div id="popup" class="modal-box">
+		  <header>
+		    <a href="#" class="js-modal-close close">×</a>
+		    <h3>JOGUINHO DO AMOR - Qual é a música?</h3>
+				<div>Tempo restante = <span id="timer"></span></div>
+				<div id="progressbar"></div>
+		  </header>
+			<div class="parametroPergunta">
+			</div>
+			<div class="perguntas">
+			</div>
+		  <footer>
+		    <a href="#" class="js-modal-close">Close Button</a>
+				<a href="#" class="js-modal-proxima">Proxima pergunta</a>
+		  </footer>
 		</div>
 		<img id="img-instrumentos" src="img/Instrumentos-musicais.png" alt="Instrumentos Musicais">
 		<img id="img-notaMus" src="img/musical-notes.png" alt="Nota Musical">
