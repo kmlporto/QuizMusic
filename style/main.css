@@ -1,4 +1,4 @@
-@import url ("https://fonts.googleapis.com/css?family=Monoton|Righteous");
+@import url("https://fonts.googleapis.com/css?family=Monoton|Righteous");
 
 @import "~bootstrap/scss/bootstrap";
 /*-------------CSS PARA O POPUP-----------------*/
@@ -91,7 +91,6 @@ a.close:hover {
 body{
   background: url("../img/generos.png") no-repeat;
 }
-
 /*------ HEADER--------*/
 
 #titulo {
