@@ -1,5 +1,12 @@
 // Importações
 
+// import 'js/jquery.countdown.js'
+//import '~ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js';
+
+import 'jquery'
+import 'bootstrap'
+import 'popper.js'
+
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
 import {achaArt} from './genero.mjs'
 import {geraPerguntas} from './perguntas.mjs'
