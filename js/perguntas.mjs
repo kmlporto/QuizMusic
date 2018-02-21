@@ -12,7 +12,6 @@ Parametro:
 funcao diminJSON()
 */
 function filtroArtista (artistas, artist) {
-	console.log(artistas)
 	let teste = [], i
 	if (artist !== 'vazio') {
 		for (i = 0; i < artistas.length; i++) {
@@ -58,15 +57,19 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 			questions.innerHTML = ''
 			questions.innerHTML += htmlPergunta
 
-			htmlRespostas += `<select id = "opcoesResp">`
+		// 	<input type="radio" id="contactChoice1"
+    //  name="contact" value="email">
+    // <label for="contactChoice1">Email</label>
+
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
-					htmlRespostas += `<option value="respCorreta">${v[randomMusic].musDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[randomMusic].musDesc}</label>`
 				} else {
-					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].musDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}</label>`
 				}
 			}
-			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
 		})
 	}
@@ -86,15 +89,15 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 })
 			questions.innerHTML = ''
 			questions.innerHTML += htmlPergunta
-			htmlRespostas += `<select id = "opcoesResp">`
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
-					htmlRespostas += `<option value="respCorreta">${v[randomMusic].artDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
 				} else {
-					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].artDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
 				}
 			}
-			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
 		})
 	}
@@ -115,15 +118,15 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 })
 			questions.innerHTML = ''
 			questions.innerHTML += htmlPergunta
-			htmlRespostas += `<select id = "opcoesResp">`
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
-					htmlRespostas += `<option value="respCorreta">${v[randomMusic].artDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
 				} else {
-					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].artDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
 				}
 			}
-			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
 		})
 	}
@@ -151,15 +154,16 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 })
 			questions.innerHTML = ''
 			questions.innerHTML += htmlPergunta
-			htmlRespostas += `<select id = "opcoesResp">`
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
-					htmlRespostas += `<option value="respCorreta">${artMusFilter[randomMusic].musDesc}</option>`
+					console.log(artMusFilter);
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
+														<label for="radio${i}">${artMusFilter[randomMusic].musDesc}</label>`
 				} else {
-					htmlRespostas += `<option value="respErrada">${v[getRandomInt(0,v.length)].musDesc}</option>`
+					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}</label>`
 				}
 			}
-			htmlRespostas += `</select>`
 			questions.innerHTML += htmlRespostas
 		})
 	}
