@@ -95,7 +95,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}}</label>`
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
 				}
 			}
 			questions.innerHTML += htmlRespostas
@@ -124,7 +124,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}}</label>`
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
 				}
 			}
 			questions.innerHTML += htmlRespostas
@@ -161,7 +161,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 														<label for="radio${i}">${artMusFilter[randomMusic].musDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}}</label>`
+														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}</label>`
 				}
 			}
 			questions.innerHTML += htmlRespostas
