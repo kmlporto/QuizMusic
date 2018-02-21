@@ -33,9 +33,19 @@ module.exports = {
         use: [
           { loader: 'file-loader', options: { name: '[name].[ext]', outputPath: 'fonts/', publicPath: '../' } },
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {name: '[name].[ext]', outputPath: 'img/', publicPath: '../' }
+          }
+        ]
+      },
     ]
   },
+
 
   plugins: [
     new UglifyJsPlugin()
