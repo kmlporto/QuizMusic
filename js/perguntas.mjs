@@ -52,7 +52,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join(" ")
+								 let trecho = letra.split("\n").slice(0, 5).join("\n")
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
@@ -81,7 +81,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join(" ")
+								 let trecho = letra.split("\n").slice(0, 5).join("\n")
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
@@ -146,7 +146,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join(" ").replace('\ (?=[A-Z])', '\n')
+								 let trecho = letra.split("\n").slice(0, 5).join("\n").replace('\ (?=[A-Z])', '\n')
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
