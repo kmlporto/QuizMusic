@@ -29,6 +29,7 @@ var numPer = document.querySelector('#numPer')
 var parametroPergunta = document.querySelector ('.parametroPergunta')
 var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
+var popup = document.querySelector ('.corpo-popup')
 
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 
@@ -59,7 +60,7 @@ genero.addEventListener('change', () => {
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key, popup)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -105,7 +106,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
+	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key, popup)
 });
 
 $(window).resize(function() {

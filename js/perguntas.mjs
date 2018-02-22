@@ -23,12 +23,59 @@ function filtroArtista (artistas, artist) {
 	return teste
 }
 
+/*Função para gerar as opções de respostas*/
+
+const geraOpcoes = (respostaCorretaValor, respostasErradas) => {
+	let array = []
+	let respostaCorretaPosicao = getRandomInt(1,5)
+	for (let i = 1, j = 0; i <= 4; i++) {
+		if (i === respostaCorretaPosicao) {
+			array.push(`<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
+									<label for="radio${i}">${respostaCorretaValor}</label>`)
+		} else {
+			array.push(`<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
+								 	<label for="radio${i}">${respostasErradas[j]}</label>`)
+			j++
+		}
+	}
+	return array
+}
+
+/*Gera dados para serem colocados nas respostas erradas*/
+
+const respostasErradasNomeMus = (artMus, respostaCorretaPosicao) => {
+	let result
+	for (let i = 0; i < 3; i++) {
+		if (i !== respostaCorretaPosicao)
+			result.push(artMus[i].musDesc)
+		else
+			result.push(artMus[3].musDesc)
+	}
+	return result
+}
+
+const respostasErradasArtist = (artMus, respostaCorretaPosicao) => {
+	let result
+	for (let i = 0; i < 3; i++) {
+		if (i !== respostaCorretaPosicao)
+			result.push(artMus[i].artDesc)
+		else
+			result.push(artMus[3].artDesc)
+	}
+	return result
+}
+
+const geraTrechoMus = letra => {
+	// let regex = new regExp('(.+? ){4}([^ ]+)')
+	// resposta: letra.split("\n").slice(5, 7).join("<br>")
+	return letra.split("\n").slice(0, 5).join("<br>")
+}
+
 /*função para gerar pergunta
 	-parametros - possiveis perguntas do jogo, a quantidade de artistas selecionado (vazio ou um artista especifico) e o vetor com as urls das musicas dos artistas pra requisicao
 	-retorno - insere o html de um pergunta e suas possiveis respostas no codigo e retorna a resposta certa (1,2,3ou4)*/
 
-
-export function geraPerguntas (perguntas, questions, parametroPergunta, artist, artMus, key) {
+export function geraPerguntas (perguntas, questions, parametroPergunta, artist, artMus, key, teste) {
  	let random = getRandomInt (0, perguntas.length)
 	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
@@ -41,43 +88,28 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 	}
 
 	async function perguntaModelo2 () {
-		artMus.then(v => {
-			let randomMusic = getRandomInt(0,v.length)
-			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
-			let htmlRespostas = ''
+		return artMus.then(v => {
+			let resultado
+			const respostaCorretaPosicao = getRandomInt(0,v.length)
+			const urlLetra = `https://api.vagalume.com.br/search.php?art=${v[respostaCorretaPosicao].artUrl}&mus=${v[respostaCorretaPosicao].musDesc}&key=${key}`
 
-			parametroPergunta.innerHTML = ''
-			fetch(urlLetra)
-							 .then(resposta => resposta.json())
-							 .then(json => {
-								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join("\n")
-								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
-							 })
-			questions.innerHTML = ''
-			questions.innerHTML += htmlPergunta
-
-		// 	<input type="radio" id="contactChoice1"
-    //  name="contact" value="email">
-    // <label for="contactChoice1">Email</label>
-
-			for (let i = 1; i <= 4; i++) {
-				if (i===respCorreta) {
-					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[randomMusic].musDesc}</label>`
-				} else {
-					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}</label>`
-				}
-			}
-			questions.innerHTML += htmlRespostas
+			const letraMusica = fetch(urlLetra)
+																				 .then(resposta => resposta.json())
+																				 .then(json => {
+																					 return json.mus[0].text
+																				 })
+			resultado += '<h3>Leia a Letra -> Acerte o nome do Cantor</h3>'
+			resultado += geraTrechoMus(letraMusica)
+			resultado += '<h3>Faça a sua escolha</h3>'
+			resultado += geraOpcoes(v[respostaCorretaPosicao].musDesc, respostasErradasNomeMus(v, respostaCorretaPosicao))
+			return opcoes
 		})
 	}
 
 	async function perguntaModelo3 () {
 		artMus.then(v => {
-			let randomMusic = getRandomInt(0,v.length)
-			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
+			let respostaCorretaPosicao = getRandomInt(0,v.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[respostaCorretaPosicao].artUrl}&mus=${v[respostaCorretaPosicao].musDesc}&key=${key}`
 
 			parametroPergunta.innerHTML = ''
 			fetch(urlLetra)
@@ -92,7 +124,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
+														<label for="radio${i}">${v[respostaCorretaPosicao].artDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
 														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
@@ -104,8 +136,8 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 
 	async function perguntaModelo4 () {
 		artMus.then(v => {
-			let randomMusic = getRandomInt(0,v.length)
-			let urlLetra = `https://www.vagalume.com.br/${v[randomMusic].artUrl}/index.js`
+			let respostaCorretaPosicao = getRandomInt(0,v.length)
+			let urlLetra = `https://www.vagalume.com.br/${v[respostaCorretaPosicao].artUrl}/index.js`
 			let htmlRespostas = ''
 
 			parametroPergunta.innerHTML = ''
@@ -121,7 +153,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 			for (let i = 1; i <= 4; i++) {
 				if (i===respCorreta) {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
-														<label for="radio${i}">${v[randomMusic].artDesc}</label>`
+														<label for="radio${i}">${v[respostaCorretaPosicao].artDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
 														<label for="radio${i}">${v[getRandomInt(0,v.length)].artDesc}</label>`
@@ -140,8 +172,8 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 	async function perguntaModelo6 () {
 		artMus.then(v => {
 			let artMusFilter = filtroArtista(v, artist) // ?? Verificar
-			let randomMusic = getRandomInt(0,artMusFilter.length)
-			let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[randomMusic].artUrl}&mus=${artMusFilter[randomMusic].musDesc}&key=${key}`
+			let respostaCorretaPosicao = getRandomInt(0,artMusFilter.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[respostaCorretaPosicao].artUrl}&mus=${artMusFilter[respostaCorretaPosicao].musDesc}&key=${key}`
 			let htmlRespostas = ''
 
 			parametroPergunta.innerHTML = ''
@@ -158,7 +190,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 				if (i===respCorreta) {
 					console.log(artMusFilter);
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respCorreta name="optradio" id="radio${i}">
-														<label for="radio${i}">${artMusFilter[randomMusic].musDesc}</label>`
+														<label for="radio${i}">${artMusFilter[respostaCorretaPosicao].musDesc}</label>`
 				} else {
 					htmlRespostas += `<input type="radio" class="radio-inline" value="respErrada name="optradio" id="radio${i}">
 														<label for="radio${i}">${v[getRandomInt(0,v.length)].musDesc}</label>`
