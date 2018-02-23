@@ -56,11 +56,20 @@ genero.addEventListener('change', () => {
   artMus = achaArt(genero.value, artist)
 })
 
+artist.addEventListener('change', () => {
+  artist.innerHTML = ''
+  artist.innerHTML = `<option value="vazio">Escolha um Artista/banda (opcional)</option>`
+  artMus = achaArt(genero.value, artist)
+})
+
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key, popup)
+  if (artist.value != 'vazio')
+	 geraPerguntas (perguntas, artMus)
+  else
+    geraPerguntas (perguntas, filtroArtista(artMus, artist.value))
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -106,7 +115,8 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key, popup)
+  if (artist.value != 'vazio')
+	geraPerguntas(perguntas, artMus)
 });
 
 $(window).resize(function() {
