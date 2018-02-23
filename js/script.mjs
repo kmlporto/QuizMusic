@@ -10,34 +10,24 @@ import {geraPerguntas} from './perguntas.mjs'
 // import './jquery.countdown.js'
 
 //DECLARACAO DE VARIÁVEIS
-
-var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
- 							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
-
-var numeroPerguntas = [5, 10, 15, 20]
-
-
 // Query Selectors
 
 var genero = document.querySelector('#generoMusical')
+var numeroPerguntas = document.querySelector('#numPer')
 var artist = document.querySelector('#art-banda')
-var numPer = document.querySelector('#numPer')
-var parametroPergunta = document.querySelector ('.parametroPergunta')
-var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 var popup = document.querySelector ('.corpo-popup')
 
-// Variavel pra pegar o nome das musicas e artistas nas funcoes
+var arrayPerguntas = []
 
+// Variavel pra pegar o nome das musicas e artistas nas funcoes
 var artMus = []
+var posicaoPergunta = 0
 
 // Exibição dinâmica dos itens dos selects formulário
 
-mostraGeneros(generos, generoMusical)
-mostraNumPerguntas(numeroPerguntas, numPer)
-
-//função para acumular os pontos
-
+mostraGeneros(generoMusical)
+mostraNumPerguntas(numeroPerguntas)
 
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
 
@@ -52,7 +42,9 @@ genero.addEventListener('change', () => {
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
-	geraPerguntas (perguntas, artMus, artist.value)
+	arrayPerguntas = geraPerguntas (artMus, artist.value, numeroPerguntas.value)
+  popup.innerHTML = exibePergunta(arrayPerguntas, posicaoPergunta))
+  posicaoPergunta ++
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -98,8 +90,10 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-  if (artist.value != 'vazio')
-	geraPerguntas(perguntas, artMus)
+  popup.innerHTML = exibePergunta(arrayPerguntas, posicaoPergunta))
+  posicaoPergunta ++
+  if ((posicaoPergunta + 1) === numeroPerguntas.value)
+    $(".modal-overlay").remove();
 });
 
 $(window).resize(function() {
