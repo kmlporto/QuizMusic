@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>MusiQuiz</title>
 	<link rel="stylesheet" href="dist/css/bundle.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css">
 	<!-- <link rel="stylesheet" href="style/main.css"> -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<script src="js/jquery.countdown.js"></script>
@@ -40,16 +41,13 @@
 								<option value="vazio">Número de perguntas (obrigatório)</option>
 							</select>
 						</div>
-						<button class="botao btn btn-default">
-							<a class="js-open-modal" href="#" data-modal-id="popup">INICIAR</a>
-						</button>
+						<button class="botao btn btn-default">Iniciar</button>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div id="popup" class="modal-box">
+		<div id="modal">
 		  <header>
-		    <a href="#" class="js-modal-close close">×</a>
 		    <h3>Qual é a música?</h3>
 				<span id="clock"></span>
 		  </header>
@@ -58,17 +56,15 @@
 			<div class="perguntas">
 			</div>
 		  <footer>
-		    <a href="#" class="js-modal-close">Close Button</a>
-				<a href="#" class="js-modal-proxima">Proxima pergunta</a>
+				<button data-izimodal-fullscreen="">Desistir do Jogo/Reiniciar</button>
+				<button data-izimodal-close="">Proxima Pergunta</button>
 		  </footer>
 		</div>
 	</main>
-	<footer class="row">
-		<div class="col">
-
-		</div>
 	</footer>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js" type="text/javascript"></script>
 	<script src="dist/js/bundle.js"></script>
+
 	<!-- <script type="module" src="js/script.mjs"></script> -->
 </body>
 </html>

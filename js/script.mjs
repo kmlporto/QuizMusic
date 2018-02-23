@@ -26,13 +26,12 @@ let perguntas = ['Complete a letra ',
 var genero = document.querySelector('#generoMusical')
 var artist = document.querySelector('#art-banda')
 var numPer = document.querySelector('#numPer')
-var parametroPergunta = document.querySelector ('.parametroPergunta')
-var questions = document.querySelector('.perguntas')
 var botaoIniciar = document.querySelector('.botao')
 
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 
 var artMus = []
+var contadorPerguntas = 0;
 
 // Chave do vagalume
 
@@ -44,6 +43,19 @@ mostraGeneros(generos, generoMusical)
 mostraNumPerguntas(numeroPerguntas, numPer)
 
 //função para acumular os pontos
+
+
+//funcao para trocar as geraPerguntas
+
+function trocaPerguntas () {
+  var parametroPergunta = document.querySelector ('.parametroPergunta')
+  var questions = document.querySelector('.perguntas')
+
+  timerCount();
+  geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
+  contadorPerguntas++;
+  $('#modal').iziModal('open');
+}
 
 
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
@@ -58,18 +70,31 @@ genero.addEventListener('change', () => {
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
-  timerCount();
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
+  trocaPerguntas()
 })
 
-//-----------------JAVASCRIPT DO jquery ---------------------------
+$(document).on('closed', '#modal', function (e) {
+    if (contadorPerguntas != numPer.value) {
+      trocaPerguntas ()
+    }else {
+      alert("Game over!");
+      location.reload();
+    }
+});
+
+
+$(document).on('fullscreen', '#modal', function (e) {
+  location.reload();
+});
+
+//-----------------jquery dos plugins ---------------------------
 
 //tempo restante
 function timerCount () {
 	// adaptado de - http://hilios.github.io/jQuery.countdown/
 	var date = new Date();
 	var seg = date.getSeconds()
-	date = date.setSeconds(seg+10);
+	date = date.setSeconds(seg+60);
 	$("#clock").countdown(date, function(event) {
 		$(this).html(
 			event.strftime('CONTAGEM REGRESSIVA PARA RESPOSTA: %S')
@@ -82,44 +107,61 @@ function timerCount () {
 }
 
 //js do poupup
-$(function(){
 
-var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
-
-  $('a[data-modal-id]').click(function(e) {
-    e.preventDefault();
-    $("body").append(appendthis);
-    $(".modal-overlay").fadeTo(500, 0.7);
-    //$(".js-modalbox").fadeIn(500);
-    var modalBox = $(this).attr('data-modal-id');
-    $('#'+modalBox).fadeIn($(this).data());
-  });
-
-
-$(".js-modal-close, .modal-overlay").click(function() {
-  $(".modal-box, .modal-overlay").fadeOut(500, function() {
-    $(".modal-overlay").remove();
-		location.reload();
-  });
+$("#modal").iziModal({
+    title: '',
+    subtitle: '',
+    headerColor: '#88A0B9',
+    background: null,
+    theme: '',  // light
+    icon: null,
+    iconText: null,
+    iconColor: '',
+    rtl: false,
+    width: 600,
+    top: null,
+    bottom: null,
+    borderBottom: true,
+    padding: 0,
+    radius: 3,
+    zindex: 999,
+    iframe: false,
+    iframeHeight: 400,
+    iframeURL: null,
+    focusInput: true,
+    group: '',
+    loop: false,
+    arrowKeys: true,
+    navigateCaption: true,
+    navigateArrows: true, // Boolean, 'closeToModal', 'closeScreenEdge'
+    history: false,
+    restoreDefaultContent: false,
+    autoOpen: 0, // Boolean, Number
+    bodyOverflow: false,
+    fullscreen: false,
+    openFullscreen: true,
+    closeOnEscape: true,
+    closeButton: true,
+    appendTo: 'body', // or false
+    appendToOverlay: 'body', // or false
+    overlay: true,
+    overlayClose: true,
+    overlayColor: 'rgba(0, 0, 0, 0.4)',
+    timeout: false,
+    timeoutProgressbar: false,
+    pauseOnHover: false,
+    timeoutProgressbarColor: 'rgba(255,255,255,0.5)',
+    transitionIn: 'comingIn',
+    transitionOut: 'comingOut',
+    transitionInOverlay: 'fadeIn',
+    transitionOutOverlay: 'fadeOut',
+    onFullscreen: function(){},
+    onResize: function(){},
+    onOpening: function(){},
+    onOpened: function(){},
+    onClosing: function(){},
+    onClosed: function(){},
+    afterRender: function(){}
 });
 
-$(".js-modal-proxima").click(function() {
-	timerCount()
-	geraPerguntas(perguntas, questions, parametroPergunta, artist.value, artMus, key)
-});
-
-$(window).resize(function() {
-  $(".modal-box").css({
-    top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
-    left: ($(window).width() - $(".modal-box").outerWidth()) / 2
-  });
-});
-
-$(window).resize();
-
-});
-
-//-----------jquery progressbar--------------------------
-
-
-//----------------fim do js do JQUERY-------------------------------
+//----------------fim JQUERY dos puglins-------------------------------
