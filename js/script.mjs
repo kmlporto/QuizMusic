@@ -16,10 +16,6 @@ var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
 
 var numeroPerguntas = [5, 10, 15, 20]
 
-let perguntas = ['Complete a letra ',
-                 'Acerte a nome da música',
-								 'A letra , pertence a qual Artista/Banda?',
-                 'Qual o Artista/Banda ilustrado na foto?']
 
 // Query Selectors
 
@@ -34,10 +30,6 @@ var popup = document.querySelector ('.corpo-popup')
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 
 var artMus = []
-
-// Chave do vagalume
-
-var key = 'c3f6644637dc1802b86c528e33ba0f78'
 
 // Exibição dinâmica dos itens dos selects formulário
 
@@ -56,20 +48,11 @@ genero.addEventListener('change', () => {
   artMus = achaArt(genero.value, artist)
 })
 
-artist.addEventListener('change', () => {
-  artist.innerHTML = ''
-  artist.innerHTML = `<option value="vazio">Escolha um Artista/banda (opcional)</option>`
-  artMus = achaArt(genero.value, artist)
-})
-
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
 botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
-  if (artist.value != 'vazio')
-	 geraPerguntas (perguntas, artMus)
-  else
-    geraPerguntas (perguntas, filtroArtista(artMus, artist.value))
+	geraPerguntas (perguntas, artMus, artist.value)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
