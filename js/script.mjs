@@ -61,11 +61,10 @@ function trocaPerguntas () {
 
 //funcao para computar a resposta e finalizar o Jogo
 function verificaResposta () {
-  console.log (document.querySelector('input[name="optradio"]:checked').value)
-  var respostaRadio = document.querySelector('input[name="optradio"]:checked').value
+  var respostaRadio = document.querySelector('input[name="optradio"]:checked')
 
   if (respostaRadio) {
-    if(respostaRadio === 'respCorreta') {
+    if(respostaRadio.value === 'respCorreta') {
       pontos++
       alert("Você é o cara! Resposta correta, continue assim")
     }else {
