@@ -24,16 +24,16 @@ async function filtroArtista (artMus, artistaSelecionado) {
 const geraOpcoes = (respostaCorretaValor, respostasErradas) => {
 	let array = []
 	let respostaCorretaPosicao = getRandomInt(1,5)
-	for (let i = 1, j = 0; i <= 4; i++, j++) {
-		if (i === respostaCorretaPosicao) {
-			array.push(`<input type="radio" class="radio-inline respCorreta" value="respCorreta" name="optradio" id="radio${i}">
-									<label for="radio${i}">${respostaCorretaValor}</label>`)
-		} else {
-			array.push(`<input type="radio" class="radio-inline" value="respErrada" name="optradio" id="radio${i}">
-								 	<label for="radio${i}">${respostasErradas[j]}</label>`)
-		}
+	for (let i = 0; i< 3; i++) {
+		array.push(`<input type="radio" class="radio-inline" value="respErrada" name="optradio" id="radio${i+1}">
+								<label for="radio${i+1}">${respostasErradas[i]}</label>`)
 	}
-	return array
+	array.push(`<input type="radio" class="radio-inline respCorreta" value="respCorreta" name="optradio" id="radio4">
+							<label for="radio4">${respostaCorretaValor}</label>`)
+	let aux = array[respostaCorretaPosicao]
+	array[respostaCorretaPosicao] = array[3]
+	array[3] = aux
+	return array.join('')
 }
 
 /*Gera dados para serem colocados nas respostas erradas*/
@@ -97,7 +97,7 @@ async function perguntaFotoArtista (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const urlLetra = `https://www.vagalume.com.br/${artMus[respostaCorretaPosicao].artUrl}/index.js`
 
-	const urlFotoArtista = fetch(urlLetra)
+	const urlFotoArtista = await fetch(urlLetra)
 																		 .then(resposta => resposta.json())
 																		 .then(json => {
 																			 return json.artist.pic_small
@@ -160,18 +160,4 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 		}
 	}
 	return arrayPerguntas
-}
-
-export async function exibePergunta (arrayPerguntas, posicaoPergunta, seletor) {
-	seletor.innerHTML = ''
-  console.log(posicaoPergunta);
-	arrayPerguntas.then(v => {
-									console.log(v);
-									console.log(posicaoPergunta);
-									v[posicaoPergunta].then(resposta => {
-										console.log(resposta);
-										seletor.insertAdjacentHTML('afterbegin',resposta)
-									})
-								})
-	return ++posicaoPergunta
 }
