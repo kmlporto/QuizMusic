@@ -4,6 +4,7 @@
 
 body{
   background: url("../img/generos.png") no-repeat;
+  background-size: cover;
 }
 /*------ HEADER--------*/
 
@@ -11,10 +12,13 @@ body{
   font-family: 'Monoton', cursive;
   font-size: 96px;
   padding: 20px;
-  background-color: rgba(255,255,255,0.9);
+  background-color: #e9ecef;
   border-radius: 25px;
   box-shadow: 10px 10px 8px rgb(210,105,30);
   color: #D2691E;
+}
+main .desafio {
+  padding-top: 50px
 }
 
 /*------FIM HEADER--------*/
@@ -28,7 +32,7 @@ main {
   color: white;
 }
 .centro {
-  background-color: rgba(210,105,30,0.9);
+  background-color: rgba(210,105,30,0.98);
   border-radius: 25px;
   margin: 20px;
   box-shadow: 10px 10px 8px rgb(210,105,30), 10px 10px 8px 20px rgb(255,255,255);
@@ -39,7 +43,24 @@ main {
   font-size: 18px;
 }
 
+main .desafio {
+  padding-top: 50px
+}
+
 /*------------FIM MAIN ------------*/
+
+/*-----------------Estilo do Modal---------*/
+.iziModal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10%;
+}
+
+
+
+/*------------Fim do Estilo Modal------------*/
 
 /*Qualquer seletor comum*/
 

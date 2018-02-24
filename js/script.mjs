@@ -97,7 +97,7 @@ function timerCount () {
 	date = date.setSeconds(seg+60);
 	$("#clock").countdown(date, function(event) {
 		$(this).html(
-			event.strftime('CONTAGEM REGRESSIVA PARA RESPOSTA: %S')
+			event.strftime('%S')
 		);
 	})
 		.on('finish.countdown',function(event) {
