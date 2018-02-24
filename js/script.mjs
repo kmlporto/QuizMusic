@@ -1,12 +1,12 @@
 // Importações
 
 // import 'jquery.countdown';
-import 'jquery'
-import 'bootstrap'
-import 'popper.js'
+// import 'jquery'
+// import 'bootstrap'
+// import 'popper.js'
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
 import {achaArt} from './genero.mjs'
-import {geraPerguntas} from './perguntas.mjs'
+import {geraPerguntas, exibePergunta} from './perguntas.mjs'
 // import './jquery.countdown.js'
 
 //DECLARACAO DE VARIÁVEIS
@@ -26,7 +26,7 @@ var posicaoPergunta = 0
 
 // Exibição dinâmica dos itens dos selects formulário
 
-mostraGeneros(generoMusical)
+mostraGeneros(genero)
 mostraNumPerguntas(numeroPerguntas)
 
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
@@ -43,8 +43,8 @@ botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
 	arrayPerguntas = geraPerguntas (artMus, artist.value, numeroPerguntas.value)
-  popup.innerHTML = exibePergunta(arrayPerguntas, posicaoPergunta))
-  posicaoPergunta ++
+  console.log(arrayPerguntas);
+  posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -54,7 +54,7 @@ function timerCount () {
 	// adaptado de - http://hilios.github.io/jQuery.countdown/
 	var date = new Date();
 	var seg = date.getSeconds()
-	date = date.setSeconds(seg+10);
+	date = date.setSeconds(seg+60);
 	$("#clock").countdown(date, function(event) {
 		$(this).html(
 			event.strftime('CONTAGEM REGRESSIVA PARA RESPOSTA: %S')
@@ -90,8 +90,7 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-  popup.innerHTML = exibePergunta(arrayPerguntas, posicaoPergunta))
-  posicaoPergunta ++
+  posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
   if ((posicaoPergunta + 1) === numeroPerguntas.value)
     $(".modal-overlay").remove();
 });

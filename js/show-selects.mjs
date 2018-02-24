@@ -1,5 +1,5 @@
 export function mostraGeneros (seletor) {
-	var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
+	let generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
 	 							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
 	let geraTagHtml = genero => {
 		let result
