@@ -43,9 +43,6 @@ botaoIniciar.addEventListener('click', (event) => {
   timerCount();
 	arrayPerguntas = geraPerguntas (artMus, artist.value, numeroPerguntas.value)
   posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
-  
-  console.log(arrayPerguntas);
-  console.log(posicaoPergunta);
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -91,7 +88,6 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
-  console.log(arrayPerguntas);
   console.log(posicaoPergunta);
   posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
   if ((posicaoPergunta + 1) === numeroPerguntas.value)

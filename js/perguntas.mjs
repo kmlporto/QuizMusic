@@ -164,10 +164,14 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 
 export async function exibePergunta (arrayPerguntas, posicaoPergunta, seletor) {
 	seletor.innerHTML = ''
+  console.log(posicaoPergunta);
 	arrayPerguntas.then(v => {
+									console.log(v);
+									console.log(posicaoPergunta);
 									v[posicaoPergunta].then(resposta => {
-																				seletor.insertAdjacentHTML('afterbegin',resposta)
-																			})
+										console.log(resposta);
+										seletor.insertAdjacentHTML('afterbegin',resposta)
+									})
 								})
-	return (posicaoPergunta++)
+	return ++posicaoPergunta
 }
