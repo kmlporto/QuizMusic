@@ -33,11 +33,32 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 	let respCorreta = getRandomInt (1, 5)
 	let htmlPergunta = `<h2>${perguntas[random]}</h2>`
 
-	function perguntaModelo1 () {
-		parametroPergunta.innerHTML = ''
-		questions.innerHTML = ''
-		questions.innerHTML += htmlPergunta
-		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+	async function perguntaModelo1 () {
+		artMus.then(v => {
+			let randomMusic = getRandomInt(0,v.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
+			let htmlRespostas = ''
+			let regexp = new RegExp('(.+? ){4}([^ ]+)')
+
+			parametroPergunta.innerHTML = ''
+			fetch(urlLetra)
+							 .then(resposta => resposta.json())
+							 .then(json => {
+								 let letra = json.mus[0].text
+								 let trecho = letra.split("\n").slice(0, 5).join("<br>")
+								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
+							 })
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+
+		// 	<input type="radio" id="contactChoice1"
+    //  name="contact" value="email">
+    // <label for="contactChoice1">Email</label>
+
+			htmlRespostas += `<h3>Digite a resposta</h3>
+														<input type= "text" pattern= "${regexp}" id="completeLetra" placeholder="Digite as proximas 5 palavas">`
+			questions.innerHTML += htmlRespostas
+		})
 	}
 
 	async function perguntaModelo2 () {
@@ -51,7 +72,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join("\n")
+								 let trecho = letra.split("\n").slice(0, 5).join("<br>")
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
@@ -78,13 +99,14 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 		artMus.then(v => {
 			let randomMusic = getRandomInt(0,v.length)
 			let urlLetra = `https://api.vagalume.com.br/search.php?art=${v[randomMusic].artUrl}&mus=${v[randomMusic].musDesc}&key=${key}`
+			let htmlRespostas = ''
 
 			parametroPergunta.innerHTML = ''
 			fetch(urlLetra)
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join("\n")
+								 let trecho = letra.split("\n").slice(0, 5).join("<br>")
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
@@ -113,7 +135,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = "https://www.vagalume.com.br/"
-								 letra += json.artist.pic_small
+								 letra += json.artist.pic_medium
 								 parametroPergunta.innerHTML += `<img src="${letra}" alt="">`
 							 })
 			questions.innerHTML = ''
@@ -132,9 +154,32 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 	}
 
 	function perguntaModelo5 () {
-		questions.innerHTML = ''
-		questions.innerHTML += htmlPergunta
-		questions.innerHTML += '<p> Não fiz o codigo ainda</p>'
+		artMus.then(v => {
+			let artMusFilter = filtroArtista(v, artist) // ?? Verificar
+			let randomMusic = getRandomInt(0,artMusFilter.length)
+			let urlLetra = `https://api.vagalume.com.br/search.php?art=${artMusFilter[randomMusic].artUrl}&mus=${artMusFilter[randomMusic].musDesc}&key=${key}`
+			let htmlRespostas = ''
+			let regexp = new RegExp('(.+? ){4}([^ ]+)')
+
+			parametroPergunta.innerHTML = ''
+			fetch(urlLetra)
+							 .then(resposta => resposta.json())
+							 .then(json => {
+								 let letra = json.mus[0].text
+								 let trecho = letra.split("\n").slice(0, 5).join("<br>")
+								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
+							 })
+			questions.innerHTML = ''
+			questions.innerHTML += htmlPergunta
+
+		// 	<input type="radio" id="contactChoice1"
+    //  name="contact" value="email">
+    // <label for="contactChoice1">Email</label>
+
+			htmlRespostas += `<h3>Digite a resposta</h3>
+														<input type= "text" pattern= "${regexp}" id="completeLetra" placeholder="Digite as proximas 5 palavas">`
+			questions.innerHTML += htmlRespostas
+		})
 	}
 
 	async function perguntaModelo6 () {
@@ -149,7 +194,7 @@ export function geraPerguntas (perguntas, questions, parametroPergunta, artist, 
 							 .then(resposta => resposta.json())
 							 .then(json => {
 								 let letra = json.mus[0].text
-								 let trecho = letra.split("\n").slice(0, 5).join("\n").replace('\ (?=[A-Z])', '\n')
+								 let trecho = letra.split("\n").slice(0, 5).join("<br>").replace('\ (?=[A-Z])', '\n')
 								 parametroPergunta.innerHTML += `<p>${trecho}</p>`
 							 })
 			questions.innerHTML = ''
