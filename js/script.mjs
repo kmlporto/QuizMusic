@@ -18,11 +18,10 @@ var artist = document.querySelector('#art-banda')
 var botaoIniciar = document.querySelector('.botao')
 var popup = document.querySelector ('.corpo-popup')
 
-var arrayPerguntas = []
-
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 var artMus = []
 var posicaoPergunta = 0
+var arrayPerguntas = []
 
 // Exibição dinâmica dos itens dos selects formulário
 
@@ -34,7 +33,7 @@ mostraNumPerguntas(numeroPerguntas)
 //evento para receber o valor da escolha do genero musical
 genero.addEventListener('change', () => {
   artist.innerHTML = ''
-  artist.innerHTML = `<option value="vazio">Escolha um Artista/banda (opcional)</option>`
+  artist.insertAdjacentHTML('afterbegin', `<option value="vazio">Escolha um Artista/banda (opcional)</option>`)
   artMus = achaArt(genero.value, artist)
 })
 
@@ -43,8 +42,10 @@ botaoIniciar.addEventListener('click', (event) => {
 	event.preventDefault()
   timerCount();
 	arrayPerguntas = geraPerguntas (artMus, artist.value, numeroPerguntas.value)
-  console.log(arrayPerguntas);
   posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
+  
+  console.log(arrayPerguntas);
+  console.log(posicaoPergunta);
 })
 
 //-----------------JAVASCRIPT DO jquery ---------------------------
@@ -90,6 +91,8 @@ $(".js-modal-close, .modal-overlay").click(function() {
 
 $(".js-modal-proxima").click(function() {
 	timerCount()
+  console.log(arrayPerguntas);
+  console.log(posicaoPergunta);
   posicaoPergunta = exibePergunta(arrayPerguntas, posicaoPergunta, popup)
   if ((posicaoPergunta + 1) === numeroPerguntas.value)
     $(".modal-overlay").remove();

@@ -94,7 +94,6 @@ async function perguntaNomeArtista (artMus) {
 					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}`
 }
 async function perguntaFotoArtista (artMus) {
-	console.log(artMus);
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const urlLetra = `https://www.vagalume.com.br/${artMus[respostaCorretaPosicao].artUrl}/index.js`
 
@@ -129,8 +128,7 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 	for (let i = 1; i <= numeroPerguntas; i++) {
 		let artMusFilter = await filtroArtista(artMus, artistaSelecionado)
 		if (artistaSelecionado === 'vazio') {
-			let random = getRandomInt(1,4)
-			console.log(artMus);
+			let random = getRandomInt(1,5)
 			switch (random) {
 				case 1:
 					arrayPerguntas.push(perguntaCompleteLetra(artMusFilter))
@@ -142,6 +140,10 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 
 				case 3:
 					arrayPerguntas.push(perguntaFotoArtista(artMusFilter))
+					break;
+
+				case 4:
+					arrayPerguntas.push(perguntaNomeMus(artMusFilter))
 					break;
 			}
 		} else {
@@ -161,10 +163,11 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 }
 
 export async function exibePergunta (arrayPerguntas, posicaoPergunta, seletor) {
+	seletor.innerHTML = ''
 	arrayPerguntas.then(v => {
-		console.log(v);
-		seletor.innerHTML = v[posicaoPergunta]
-		seletor.insertAdjacentHTML('beforeend','<h2>entrou</2>')
-	})
+									v[posicaoPergunta].then(resposta => {
+																				seletor.insertAdjacentHTML('afterbegin',resposta)
+																			})
+								})
 	return (posicaoPergunta++)
 }
