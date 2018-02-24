@@ -11,27 +11,29 @@ import {geraPerguntas} from './perguntas.mjs'
 
 //DECLARACAO DE VARIÁVEIS
 
-var generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
+const generos = ["vazio", "axe", "forro", "funk-carioca", "hip-hop", "indie",
  							"infantil", "pagode", "pop", "reggae", "rock", "samba", "sertanejo"]
 
-var numeroPerguntas = [5, 10, 15, 20]
+const numeroPerguntas = [5, 10, 15]
 
-let perguntas = ['Complete a letra ',
+const perguntas = ['Complete a letra ',
                  'Acerte a nome da música',
 								 'A letra , pertence a qual Artista/Banda?',
                  'Qual o Artista/Banda ilustrado na foto?']
 
 // Query Selectors
 
-var genero = document.querySelector('#generoMusical')
-var artist = document.querySelector('#art-banda')
-var numPer = document.querySelector('#numPer')
+const genero = document.querySelector('#generoMusical')
+const artist = document.querySelector('#art-banda')
+const numPer = document.querySelector('#numPer')
 var botaoIniciar = document.querySelector('.botao')
 
 // Variavel pra pegar o nome das musicas e artistas nas funcoes
 
 var artMus = []
 var contadorPerguntas = 0;
+var pontos = 0
+var stringGameOver = "Game over! TOTAL DE PONTOS:"
 
 // Chave do vagalume
 
@@ -57,6 +59,20 @@ function trocaPerguntas () {
   $('#modal').iziModal('open');
 }
 
+//funcao para computar a resposta e finalizar o Jogo
+function verificaResposta () {
+  console.log (document.querySelector('input[name="optradio"]:checked').value)
+  var respostaRadio = document.querySelector('input[name="optradio"]:checked').value
+
+  if (respostaRadio) {
+    if(respostaRadio === 'respCorreta') {
+      pontos++
+      alert("Você é o cara! Resposta correta, continue assim")
+    }else {
+    alert("Não foi dessa vez parceiro! Resposta errada")
+    }
+  }
+}
 
 //ACOMPANHAMENTO DOS EVENTOS DA PÁGINA
 
@@ -75,9 +91,11 @@ botaoIniciar.addEventListener('click', (event) => {
 
 $(document).on('closed', '#modal', function (e) {
     if (contadorPerguntas != numPer.value) {
+      verificaResposta()
       trocaPerguntas ()
     }else {
-      alert("Game over!");
+      stringGameOver += pontos
+      alert(stringGameOver);
       location.reload();
     }
 });
