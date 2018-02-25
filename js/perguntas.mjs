@@ -96,11 +96,13 @@ async function perguntaNomeArtista (artMus) {
 async function perguntaFotoArtista (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const urlLetra = `https://www.vagalume.com.br/${artMus[respostaCorretaPosicao].artUrl}/index.js`
+	console.log(urlLetra)
+
 
 	const urlFotoArtista = await fetch(urlLetra)
 																		 .then(resposta => resposta.json())
 																		 .then(json => {
-																			 return json.artist.pic_small
+																			 return json.artist.pic_medium
 																		 })
 	return `<h3>Qual o Artista/Banda ilustrado na foto?</h3>
 					<img src="https://www.vagalume.com.br/${urlFotoArtista}" alt="">
