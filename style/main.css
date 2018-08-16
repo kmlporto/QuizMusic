@@ -3,7 +3,7 @@
 /*----------------- Estilização da Página---------------*/
 
 body{
-  background: url("../img/generos.png") no-repeat;
+  background: url("../img/HomePage.png") no-repeat;
   background-size: cover;
 }
 /*------ HEADER--------*/
@@ -44,13 +44,19 @@ main .desafio {
 }
 
 main .desafio {
-  padding-top: 50px
+  padding-top: 50px;
 }
 
 /*------------FIM MAIN ------------*/
 
 /*-----------------Estilo do Modal---------*/
-.iziModal-content {
+
+.iziModal-content > * {
+  font-family: 'Righteous', cursive;
+  margin: 20px;
+}
+
+/*.iziModal-content {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -61,7 +67,7 @@ main .desafio {
 .iziModal-content header {
   display: flex;
   justify-content: space-around;
-}
+}*/
 
 
 /*------------Fim do Estilo Modal------------*/

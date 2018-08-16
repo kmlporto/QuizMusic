@@ -180,3 +180,17 @@ $("#modal").iziModal({
 });
 
 //----------------fim JQUERY dos puglins-------------------------------
+
+// radio.addEventListener('focus', () => {
+// 	radio.style.color = 'green';
+// 	console.log('teste');
+// })
+// 
+// let radio = document.querySelector('.radio')
+// radio.addEventListener('mouseover', () => {
+// 	radio.setAttribute('style', 'font-size: 24px; color: green;')
+// 	console.log('entrou');
+// })
+// radio.addEventListener('click', () => {
+// 	radio.setAttribute('style', 'font-size: 24px; color: green;')
+// })

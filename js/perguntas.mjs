@@ -25,11 +25,15 @@ const geraOpcoes = (respostaCorretaValor, respostasErradas) => {
 	let array = []
 	let respostaCorretaPosicao = getRandomInt(1,5)
 	for (let i = 0; i< 3; i++) {
-		array.push(`<input type="radio" class="radio-inline" value="respErrada" name="optradio" id="radio${i+1}">
-								<label for="radio${i+1}">${respostasErradas[i]}</label>`)
+		array.push(`<div class="radio">
+									<input type="radio" value="respErrada" name="optradio" id="radio${i+1}">
+									<label for="radio${i+1}">${respostasErradas[i]}</label>
+								</div>`)
 	}
-	array.push(`<input type="radio" class="radio-inline respCorreta" value="respCorreta" name="optradio" id="radio4">
-							<label for="radio4">${respostaCorretaValor}</label>`)
+	array.push(`<div class="radio">
+								<input type="radio" class="respCorreta" value="respCorreta" name="optradio" id="radio4">
+								<label for="radio4">${respostaCorretaValor}</label>
+							</div>`)
 	let aux = array[respostaCorretaPosicao]
 	array[respostaCorretaPosicao] = array[3]
 	array[3] = aux
@@ -79,19 +83,23 @@ async function perguntaCompleteLetra (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
   let regexp = new RegExp('(.+? ){4}([^ ]+)')
-	return `<h3>Complete a letra</h3>
+	return `<div class="col">
+					<h3>Complete a letra</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
 					<h3>Digite a resposta</h3>
-					<input type= "text" pattern= "${regexp}" id="completeLetra" placeholder="Digite as proximas 5 palavas">`
+					<input type= "text" pattern= "${regexp}" id="completeLetra" placeholder="Digite as proximas 5 palavas">
+					<div class="col">`
 }
 
 async function perguntaNomeArtista (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
-	return `<h3>A letra , pertence a qual Artista/Banda?</h3>
+	return `<div class="col">
+					<h3>A letra , pertence a qual Artista/Banda?</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
 					<h3>Faça a sua escolha</h3>
-					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}`
+					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}
+					</div>`
 }
 async function perguntaFotoArtista (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
@@ -104,34 +112,30 @@ async function perguntaFotoArtista (artMus) {
 																		 .then(json => {
 																			 return json.artist.pic_medium
 																		 })
-	return `<h3>Qual o Artista/Banda ilustrado na foto?</h3>
+	return `<div class="col">
+					<h3>Qual o Artista/Banda ilustrado na foto?</h3>
 					<img src="https://www.vagalume.com.br/${urlFotoArtista}" alt="">
 					<h3>Faça a sua escolha</h3>
-					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}`
+					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}
+					</div>`
 }
 async function perguntaNomeMus (artMus) {
 	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
 	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
-	return `<h3>Acerte a nome da música</h3>
+	return `<div class="col">
+					<h3>Acerte a nome da música</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
 					<h3>Faça a sua escolha</h3>
-					${geraOpcoes(artMus[respostaCorretaPosicao].musDesc, respostasErradasNomeMus(artMus, respostaCorretaPosicao))}`
-
+					${geraOpcoes(artMus[respostaCorretaPosicao].musDesc, respostasErradasNomeMus(artMus, respostaCorretaPosicao))}
+					</div>`
 }
 
 export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas) {
 	let arrayPerguntas = []
-	// let perguntas = {
-	// 	 								artist: ['Complete a letra ',
-	//                  						'Acerte a nome da música'],
-	// 								  genero: ['A letra , pertence a qual Artista/Banda?',
-	//                  					 'Qual o Artista/Banda ilustrado na foto?']
-	// 								}
 	for (let i = 1; i <= numeroPerguntas; i++) {
 		let artMusFilter = await filtroArtista(artMus, artistaSelecionado)
 		if (artistaSelecionado === 'vazio') {
-			let random = getRandomInt(1,5)
-			switch (random) {
+			switch (getRandomInt(1,5)) {
 				case 1:
 					arrayPerguntas.push(perguntaCompleteLetra(artMusFilter))
 					break;
@@ -154,7 +158,6 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 				case 1:
 					arrayPerguntas.push(perguntaCompleteLetra(artMusFilter))
 					break;
-
 				case 2:
 					arrayPerguntas.push(perguntaNomeMus(artMusFilter))
 					break;
