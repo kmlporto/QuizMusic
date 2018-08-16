@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Monoton|Righteous");
 
-/*----------------- Estilização da Página---------------*/
-
+/*
+#44D9DE----------------- Estilização da Página---------------*/
 body{
   background: url("../img/HomePage.png") no-repeat;
   background-size: cover;
@@ -12,10 +12,9 @@ body{
   font-family: 'Monoton', cursive;
   font-size: 96px;
   padding: 20px;
-  background-color: #e9ecef;
-  border-radius: 25px;
-  box-shadow: 10px 10px 8px rgb(210,105,30);
-  color: #D2691E;
+  margin: 15px;
+  letter-spacing: 5px;
+  color: #F5F5F5;
 }
 main .desafio {
   padding-top: 50px
@@ -26,21 +25,20 @@ main .desafio {
 /*------MAIN--------*/
 
 .main {
-  padding: 20px;
+  padding: 25px;
   font-family: 'Righteous', cursive;
   font-size: 30px;
-  color: white;
+  color: #F5F5F5;
 }
 .centro {
-  background-color: rgba(210,105,30,0.98);
   border-radius: 25px;
   margin: 20px;
-  box-shadow: 10px 10px 8px rgb(210,105,30), 10px 10px 8px 20px rgb(255,255,255);
 }
 .formulario {
   margin-top: 10px;
   margin-botton: 10px;
   font-size: 18px;
+  color: #585556;
 }
 
 main .desafio {
