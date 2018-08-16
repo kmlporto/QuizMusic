@@ -1,0 +1,4 @@
+# Ignorando arquivos criados pelo node
+node_modules/
+package-lock.json
+dist/
