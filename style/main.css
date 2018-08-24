@@ -15,9 +15,7 @@ body{
   margin: 15px;
   letter-spacing: 5px;
   color: #F5F5F5;
-}
-main .desafio {
-  padding-top: 50px
+  text-shadow: 10px 10px 10px #000;
 }
 
 /*------FIM HEADER--------*/
@@ -25,10 +23,11 @@ main .desafio {
 /*------MAIN--------*/
 
 .main {
+  margin-top: 100px;
   padding: 25px;
   font-family: 'Righteous', cursive;
   font-size: 30px;
-  color: #F5F5F5;
+  color: #585556;
 }
 .centro {
   border-radius: 25px;
@@ -38,11 +37,7 @@ main .desafio {
   margin-top: 10px;
   margin-botton: 10px;
   font-size: 18px;
-  color: #585556;
-}
-
-main .desafio {
-  padding-top: 50px;
+  /*color: #585556;*/
 }
 
 /*------------FIM MAIN ------------*/
@@ -70,7 +65,7 @@ main .desafio {
 
 /*------------Fim do Estilo Modal------------*/
 
-/*Qualquer seletor comum*/
+/*Qualquer seletor*/
 
 a {
   text-decoration: none;
