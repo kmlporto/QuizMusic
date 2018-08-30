@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Monoton|Righteous");
 
-/*
-#44D9DE----------------- Estilização da Página---------------*/
+/*---------------- Estilização da Página---------------*/
 body{
   background: url("../img/HomePage.png") no-repeat;
   background-size: cover;

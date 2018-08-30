@@ -35,6 +35,7 @@ export async function achaArt(resp_gen, seletor){
     seletor.innerHTML += item.playlist.map(itemArt).sort().uniq().join('')
 		return diminJSON(item.playlist) // ? colocar diminJSON como async?
   }
+	// var myRequest = new Request(url, {method: 'GET',mode: 'no-cors'})
   return await fetch(url)
 												.then(resposta => resposta.json()) //.then é equivalente ao sucess, o primeiro recebe a resposta e extrai apenas o json útil dela
 												.then(result) //aqui vai oq vc faz com a resposta definitiva
