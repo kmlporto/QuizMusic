@@ -14,19 +14,19 @@ export function mostraGeneros (seletor) {
 
 export function mostraNumPerguntas (seletor) {
 	var numeroPerguntas = [
-													{
-														display: 'Fácil',
-														resposta: 5
-													},
-													{
-														display: 'Intermediário',
-														resposta: 10
-													},
-													{
-														display: 'Difícil',
-														resposta: 15
-													}
-												]
+		{
+			display: 'Fácil',
+			resposta: 5
+		},
+		{
+			display: 'Intermediário',
+			resposta: 10
+		},
+		{
+			display: 'Difícil',
+			resposta: 15
+		}
+	]
 	let geraTagHtml = numero => {
 		let html = `<option value="${numero.resposta}">${numero.display}</option>`
 		seletor.insertAdjacentHTML('beforeend',html)

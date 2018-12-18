@@ -1,19 +1,20 @@
-import {getRandomInt} from './random.mjs'
+import { getRandomInt } from './random.mjs'
 
 // Chave do vagalume
 const key = 'c3f6644637dc1802b86c528e33ba0f78'
 
 // Retorna um array retirado da promessa
-async function filtroArtista (artMus, artistaSelecionado) {
+async function filtroArtista(artMus, artistaSelecionado) {
 	let array = [], i
-	return await artMus.then (v => {
+	console.log(artMus)	
+	return await artMus.then(v => {
 		if (artistaSelecionado !== 'vazio') {
 			for (i = 0; i < v.length; i++) {
-				if(artistaSelecionado === v[i].artUrl)
+				if (artistaSelecionado === v[i].artDesc.descr_url)
 					array.push(v[i])
 			}
 			return array
-		}	else {
+		} else {
 			return v
 		}
 	})
@@ -23,11 +24,11 @@ async function filtroArtista (artMus, artistaSelecionado) {
 /*Função para gerar as opções de respostas*/
 const geraOpcoes = (respostaCorretaValor, respostasErradas) => {
 	let array = []
-	let respostaCorretaPosicao = getRandomInt(1,5)
-	for (let i = 0; i< 3; i++) {
+	let respostaCorretaPosicao = getRandomInt(1, 5)
+	for (let i = 0; i < 3; i++) {
 		array.push(`<div class="radio">
-									<input type="radio" value="respErrada" name="optradio" id="radio${i+1}">
-									<label for="radio${i+1}">${respostasErradas[i]}</label>
+									<input type="radio" value="respErrada" name="optradio" id="radio${i + 1}">
+									<label for="radio${i + 1}">${respostasErradas[i]}</label>
 								</div>`)
 	}
 	array.push(`<div class="radio">
@@ -56,9 +57,9 @@ const respostasErradasArtist = (artMus, respostaCorretaPosicao) => {
 	let result = []
 	for (let i = 0; i < 3; i++) {
 		if (i !== respostaCorretaPosicao)
-			result.push(artMus[i].artDesc)
+			result.push(artMus[i].artDesc.descr)
 		else
-			result.push(artMus[3].artDesc)
+			result.push(artMus[3].artDesc.descr)
 	}
 	return result
 }
@@ -71,18 +72,18 @@ const geraTrechoMus = letra => {
 const geraLetra = async function (artista, musica) {
 	const urlLetra = `https://api.vagalume.com.br/search.php?art=${artista}&mus=${musica}&key=${key}`
 	return await fetch(urlLetra)
-															.then(resposta => resposta.json())
-															.then(json => {
-															 	return json.mus[0].text
-														 	})
+		.then(resposta => resposta.json())
+		.then(json => {
+			return json.mus[0].text
+		})
 }
 
 //Tipos de pergunta
 
-async function perguntaCompleteLetra (artMus) {
-	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
-	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
-  let regexp = new RegExp('(.+? ){4}([^ ]+)')
+async function perguntaCompleteLetra(artMus) {
+	const respostaCorretaPosicao = getRandomInt(0, artMus.length)
+	const letraMusica = await geraLetra(artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
+	let regexp = new RegExp('(.+? ){4}([^ ]+)')
 	return `<div class="col">
 					<h3>Complete a letra</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
@@ -91,37 +92,37 @@ async function perguntaCompleteLetra (artMus) {
 					<div class="col">`
 }
 
-async function perguntaNomeArtista (artMus) {
-	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
-	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
+async function perguntaNomeArtista(artMus) {
+	const respostaCorretaPosicao = getRandomInt(0, artMus.length)
+	const letraMusica = await geraLetra(artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
 	return `<div class="col">
 					<h3>A letra , pertence a qual Artista/Banda?</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
 					<h3>Faça a sua escolha</h3>
-					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}
+					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc.descr, respostasErradasArtist(artMus, respostaCorretaPosicao))}
 					</div>`
 }
-async function perguntaFotoArtista (artMus) {
-	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
+async function perguntaFotoArtista(artMus) {
+	const respostaCorretaPosicao = getRandomInt(0, artMus.length)
 	const urlLetra = `https://www.vagalume.com.br/${artMus[respostaCorretaPosicao].artUrl}/index.js`
 	console.log(urlLetra)
 
 
 	const urlFotoArtista = await fetch(urlLetra)
-																		 .then(resposta => resposta.json())
-																		 .then(json => {
-																			 return json.artist.pic_medium
-																		 })
+		.then(resposta => resposta.json())
+		.then(json => {
+			return json.artist.pic_medium
+		})
 	return `<div class="col">
-					<h3>Qual o Artista/Banda ilustrado na foto?</h3>
-					<img src="https://www.vagalume.com.br/${urlFotoArtista}" alt="">
-					<h3>Faça a sua escolha</h3>
-					${geraOpcoes(artMus[respostaCorretaPosicao].artDesc, respostasErradasArtist(artMus, respostaCorretaPosicao))}
-					</div>`
+				<h3>Qual o Artista/Banda ilustrado na foto?</h3>
+				<img src="https://www.vagalume.com.br/${urlFotoArtista}" alt="">
+				<h3>Faça a sua escolha</h3>
+				${geraOpcoes(artMus[respostaCorretaPosicao].artDesc.descr, respostasErradasArtist(artMus, respostaCorretaPosicao))}
+			</div>`
 }
-async function perguntaNomeMus (artMus) {
-	const respostaCorretaPosicao = getRandomInt(0,artMus.length)
-	const letraMusica = await geraLetra (artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
+async function perguntaNomeMus(artMus) {
+	const respostaCorretaPosicao = getRandomInt(0, artMus.length)
+	const letraMusica = await geraLetra(artMus[respostaCorretaPosicao].artUrl, artMus[respostaCorretaPosicao].musDesc)
 	return `<div class="col">
 					<h3>Acerte a nome da música</h3>
 					<p>${geraTrechoMus(letraMusica)}</p>
@@ -130,12 +131,16 @@ async function perguntaNomeMus (artMus) {
 					</div>`
 }
 
-export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas) {
+export async function geraPerguntas(artMus, artistaSelecionado, numeroPerguntas) {
 	let arrayPerguntas = []
 	for (let i = 1; i <= numeroPerguntas; i++) {
 		let artMusFilter = await filtroArtista(artMus, artistaSelecionado)
+		console.log(artMusFilter);
+		console.log('teste');
+		
+		
 		if (artistaSelecionado === 'vazio') {
-			switch (getRandomInt(1,5)) {
+			switch (getRandomInt(1, 5)) {
 				case 1:
 					arrayPerguntas.push(perguntaCompleteLetra(artMusFilter))
 					break;
@@ -153,7 +158,7 @@ export async function geraPerguntas (artMus, artistaSelecionado, numeroPerguntas
 					break;
 			}
 		} else {
-			let random = getRandomInt(1,3)
+			let random = getRandomInt(1, 3)
 			switch (random) {
 				case 1:
 					arrayPerguntas.push(perguntaCompleteLetra(artMusFilter))

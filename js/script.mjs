@@ -5,7 +5,7 @@
 // import 'bootstrap'
 // import 'popper.js'
 import {mostraGeneros, mostraNumPerguntas} from './show-selects.mjs'
-import {achaArt} from './genero.mjs'
+import {achaArtistaPorGenero} from './genero.mjs'
 import {geraPerguntas} from './perguntas.mjs'
 // import './jquery.countdown.js'
 
@@ -78,7 +78,7 @@ function verificaResposta () {
 genero.addEventListener('change', () => {
   artist.innerHTML = ''
   artist.insertAdjacentHTML('afterbegin', `<option value="vazio">Escolha um Artista/banda (opcional)</option>`)
-  artMus = achaArt(genero.value, artist)
+  artMus = achaArtistaPorGenero(genero.value, artist)
 })
 
 // Botao utilizado para simular o inicio do jogo, onde abrira o pop-up para iniciar as perguntas
